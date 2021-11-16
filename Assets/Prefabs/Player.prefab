@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8978789453144142513}
   - component: {fileID: 1918432604838359509}
   - component: {fileID: 1527833275263980061}
+  - component: {fileID: 2820179107557967839}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -62,6 +63,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2820179107557967839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73421746616378418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc396663a049cd4ea3a0453c2493574, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidadPlayer: 1000
+  fuerzaSalto: 500
+  velocidadGiro: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  animaPlayer: {fileID: 0}
 --- !u!1001 &5862600748836926817
 PrefabInstance:
   m_ObjectHideFlags: 0
