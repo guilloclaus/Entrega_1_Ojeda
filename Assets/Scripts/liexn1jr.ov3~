@@ -77,18 +77,18 @@ public class PlayerController : MonoBehaviour
         }
         else { isWalk = false; }
 
+        if (ejeVertical < 0)
+            velocidadPlayerBack = velocidadPlayer * 0.95f;
+        
 
         if (ejeVertical != 0 && isGrounded && !isWalk)
         {
 
-            if (ejeVertical > 0)
-                rbPlayer.AddRelativeForce(Vector3.forward * velocidadPlayer * ejeVertical, ForceMode.Force);
-            else
-                rbPlayer.AddRelativeForce(Vector3.forward * velocidadPlayerBack * ejeVertical, ForceMode.Force);
+            rbPlayer.AddRelativeForce(Vector3.forward * velocidadPlayer * ejeVertical, ForceMode.Force);
 
         }
 
-        if (Input.GetKey(KeyCode.Space) && isGrounded && ejeVertical >= 0)
+        if (Input.GetKey(KeyCode.Space) && isGrounded && ejeVertical > 0)
         {
             rbPlayer.AddRelativeForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
         }
@@ -143,4 +143,6 @@ public class PlayerController : MonoBehaviour
     //        return false;
     //    }
     //}
+
+
 }
