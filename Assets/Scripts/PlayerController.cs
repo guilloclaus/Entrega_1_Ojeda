@@ -80,12 +80,10 @@ public class PlayerController : MonoBehaviour
 
         if (ejeVertical != 0 && isGrounded && !isWalk)
         {
-
             if (ejeVertical > 0)
                 rbPlayer.AddRelativeForce(Vector3.forward * velocidadPlayer * ejeVertical, ForceMode.Force);
-            else
+            else if (ejeVertical < 0)
                 rbPlayer.AddRelativeForce(Vector3.forward * velocidadPlayerBack * ejeVertical, ForceMode.Force);
-
         }
 
         if (Input.GetKey(KeyCode.Space) && isGrounded && ejeVertical >= 0)
@@ -107,10 +105,7 @@ public class PlayerController : MonoBehaviour
 
         animaPlayer.SetBool("IsIdle", ejeVertical == 0 && !isRotate && !Input.GetKey(KeyCode.LeftShift));
 
-
         Debug.Log($"IsWalk {animaPlayer.GetBool("IsWalk")}; IsIdle {animaPlayer.GetBool("IsIdle")} ; IsJump {animaPlayer.GetBool("IsJump")}; IsRun {animaPlayer.GetBool("IsRun")} ; IsWalkBack {animaPlayer.GetBool("IsWalkBack")}; giroPlayer {giroPlayer}; isGround {isGrounded}");
-
-
 
     }
 
