@@ -11,12 +11,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float velocidadGiro = 10f;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] private Animator animaPlayer;
+    [SerializeField] private AudioClip walkSound;
 
     private bool isGrounded = true;
     private bool isRotate = false;
     private bool isWalk = false;
 
     private float giroPlayer = 0f;
+    private AudioSource audioPlayer;
 
     //[SerializeField] private Animator animaPlayer = new Animator();
 
@@ -27,7 +29,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody>();
-
+        audioPlayer = GetComponent<AudioSource>();
 
         animaPlayer.SetBool("IsIdle", true);
         animaPlayer.SetBool("IsRun", false);
@@ -89,6 +91,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && isGrounded && ejeVertical >= 0)
         {
             rbPlayer.AddRelativeForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
+        }
+
+        if (!audioPlayer.isPlaying && ejeVertical != 0)
+        {
+            audioPlayer.PlayOneShot(walkSound, 0.5f);
         }
     }
 
