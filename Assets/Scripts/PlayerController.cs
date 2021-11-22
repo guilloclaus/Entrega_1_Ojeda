@@ -4,21 +4,40 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+
+
+    private enum Movimiento { UP, DOWN, LEFT, RIGHT, JUMP, WALK, IDLE }
+
+
     // Start is called before the first frame update
     [SerializeField] private float velocidadPlayer = 1000f;
     [SerializeField] private float velocidadPlayerBack = 800f;
     [SerializeField] private float fuerzaSalto = 500f;
     [SerializeField] private float velocidadGiro = 10f;
-    [SerializeField] LayerMask groundLayer;
     [SerializeField] private Animator animaPlayer;
     [SerializeField] private AudioClip walkSound;
+    [SerializeField] LayerMask groundLayer;
 
     private bool isGrounded = true;
     private bool isRotate = false;
     private bool isWalk = false;
+    private bool isHit = false;
+
+
+    [SerializeField] private int lifePlayer;
+    [SerializeField] private int shieldPlayer;
+    [SerializeField] private int attackPlayer;
+
+
+    private Movimiento movimiento;
+
+
 
     private float giroPlayer = 0f;
     private AudioSource audioPlayer;
+
+
 
     //[SerializeField] private Animator animaPlayer = new Animator();
 
@@ -60,63 +79,63 @@ public class PlayerController : MonoBehaviour
             giroPlayer -= Time.deltaTime * velocidadGiro * 10;
             transform.rotation = Quaternion.Euler(0, giroPlayer, 0);
             isRotate = true;
+            movimiento = Movimiento.WALK;
+
         }
         else if (Input.GetKey(KeyCode.D) && isGrounded)
         {
             giroPlayer += Time.deltaTime * velocidadGiro * 10;
             transform.rotation = Quaternion.Euler(0, giroPlayer, 0);
             isRotate = true;
+            movimiento = Movimiento.WALK;
         }
         else
         {
             isRotate = false;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && isGrounded)
-        {
-            isWalk = true;
-            rbPlayer.AddRelativeForce(Vector3.forward * (velocidadPlayer * 0.91f), ForceMode.Force);
-        }
-        else { isWalk = false; }
-
-
         if (ejeVertical != 0 && isGrounded && !isWalk)
         {
             if (ejeVertical > 0)
+            {
                 rbPlayer.AddRelativeForce(Vector3.forward * velocidadPlayer * ejeVertical, ForceMode.Force);
+                movimiento = Movimiento.UP;
+            }
             else if (ejeVertical < 0)
+            {
                 rbPlayer.AddRelativeForce(Vector3.forward * velocidadPlayerBack * ejeVertical, ForceMode.Force);
+                movimiento = Movimiento.DOWN;
+            }
         }
 
         if (Input.GetKey(KeyCode.Space) && isGrounded && ejeVertical >= 0)
         {
             rbPlayer.AddRelativeForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
+            movimiento = Movimiento.JUMP;
         }
 
         if (!audioPlayer.isPlaying && ejeVertical != 0)
         {
             audioPlayer.PlayOneShot(walkSound, 0.5f);
         }
+
+        movimiento = Movimiento.IDLE;
     }
 
     private void ControlAnimacion()
     {
-
-        float ejeVertical = Input.GetAxis("Vertical");
-
-        animaPlayer.SetBool("IsWalk", Input.GetKey(KeyCode.LeftShift));
-        animaPlayer.SetBool("IsRun", ejeVertical > 0);
-        animaPlayer.SetBool("IsWalkBack", ejeVertical < 0 || isRotate);
-        animaPlayer.SetBool("IsJump", !isGrounded);
+        bool ejeVUp = Input.GetKey(KeyCode.W);
+        bool ejeVDown = Input.GetKey(KeyCode.S);
 
 
-        animaPlayer.SetBool("IsIdle", ejeVertical == 0 && !isRotate && !Input.GetKey(KeyCode.LeftShift));
+        animaPlayer.SetBool("IsRun", ejeVUp || Input.GetAxis("Vertical") > 0);
+        animaPlayer.SetBool("IsWalkBack", isRotate || ejeVDown);
+        animaPlayer.SetBool("IsJump", !isGrounded);        
+        animaPlayer.SetBool("IsIdle", !ejeVDown && !ejeVUp && !isRotate && !animaPlayer.GetBool("IsJump"));
 
-        Debug.Log($"IsWalk {animaPlayer.GetBool("IsWalk")}; IsIdle {animaPlayer.GetBool("IsIdle")} ; IsJump {animaPlayer.GetBool("IsJump")}; IsRun {animaPlayer.GetBool("IsRun")} ; IsWalkBack {animaPlayer.GetBool("IsWalkBack")}; giroPlayer {giroPlayer}; isGround {isGrounded}");
+        //Debug.Log($"IsIdle {animaPlayer.GetBool("IsIdle")} ; IsJump {animaPlayer.GetBool("IsJump")}; IsRun {animaPlayer.GetBool("IsRun")} ; IsWalkBack {animaPlayer.GetBool("IsWalkBack")}; giroPlayer {giroPlayer}; isGround {isGrounded}");
 
     }
-
-
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -145,4 +164,30 @@ public class PlayerController : MonoBehaviour
     //        return false;
     //    }
     //}
+
+
+
+    public void AddShield(int _shield)
+    {
+        shieldPlayer += _shield;
+    }
+    public void AddAttack(int _attack)
+    {
+        attackPlayer += _attack;
+    }
+    public void AddLife(int _life)
+    {
+        if (_life <= 0)
+            animaPlayer.SetBool("IsHit", true);
+
+        lifePlayer += _life;
+    }
+
+
+
+    public int Shield { get { return shieldPlayer; } set { shieldPlayer = value; } }
+    public int Attack { get { return attackPlayer; } set { attackPlayer = value; } }
+    public int Life { get { return lifePlayer; } set { lifePlayer = value; } }
+    
+
 }
