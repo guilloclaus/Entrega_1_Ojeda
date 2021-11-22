@@ -182,7 +182,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: speed
-      value: 1200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: CanPatrol
@@ -192,6 +192,10 @@ PrefabInstance:
       propertyPath: AlertSound
       value: 
       objectReference: {fileID: 8300000, guid: d82ce261446d9493ab9e424042c93303, type: 3}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: speedForce
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: AttackSound
       value: 
@@ -206,7 +210,11 @@ PrefabInstance:
       objectReference: {fileID: 54941798}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rangeOfView
-      value: 5
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: rotationSpeed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: minimumDistance
@@ -250,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3290461030219703891, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.92
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3290461030219703891, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -258,7 +266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3290461030219703891, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -23.04
+      value: 5.68
       objectReference: {fileID: 0}
     - target: {fileID: 3290461030219703891, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -327,12 +335,24 @@ PrefabInstance:
       value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 2820179107557967839, guid: 514f3450e7b901440b9d0ce12cae20f2, type: 3}
+      propertyPath: lifePlayer
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2820179107557967839, guid: 514f3450e7b901440b9d0ce12cae20f2, type: 3}
+      propertyPath: speedForce
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 2820179107557967839, guid: 514f3450e7b901440b9d0ce12cae20f2, type: 3}
       propertyPath: fuerzaSalto
-      value: 150
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2820179107557967839, guid: 514f3450e7b901440b9d0ce12cae20f2, type: 3}
       propertyPath: velocidadGiro
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2820179107557967839, guid: 514f3450e7b901440b9d0ce12cae20f2, type: 3}
+      propertyPath: speedForceBack
+      value: 650
       objectReference: {fileID: 0}
     - target: {fileID: 2820179107557967839, guid: 514f3450e7b901440b9d0ce12cae20f2, type: 3}
       propertyPath: velocidadPlayer
@@ -360,7 +380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8978789453144142513, guid: 514f3450e7b901440b9d0ce12cae20f2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.75
       objectReference: {fileID: 0}
     - target: {fileID: 8978789453144142513, guid: 514f3450e7b901440b9d0ce12cae20f2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2537,7 +2557,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770169763}
   m_LocalRotation: {x: 0.28944075, y: 0.046497636, z: -0.014078204, w: 0.9559623}
-  m_LocalPosition: {x: 0.39999998, y: 3.6781569, z: -1.7935917}
+  m_LocalPosition: {x: 0.39999998, y: 3.6781569, z: -3.5435917}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 596086616}
@@ -2648,7 +2668,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: speed
-      value: 1200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: CanPatrol
@@ -2658,6 +2678,10 @@ PrefabInstance:
       propertyPath: AlertSound
       value: 
       objectReference: {fileID: 8300000, guid: d82ce261446d9493ab9e424042c93303, type: 3}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: speedForce
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: AttackSound
       value: 
@@ -2672,7 +2696,11 @@ PrefabInstance:
       objectReference: {fileID: 786605108}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rangeOfView
-      value: 5
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: rotationSpeed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: minimumDistance
@@ -3318,7 +3346,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.17997314, y: 0, z: 0, w: 0.98367155}
-  m_LocalPosition: {x: 0.39999998, y: 3.6781569, z: -1.7935917}
+  m_LocalPosition: {x: 0.39999998, y: 3.6781569, z: -3.5435917}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4207,7 +4235,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: speed
-      value: 1200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: CanPatrol
@@ -4217,6 +4245,10 @@ PrefabInstance:
       propertyPath: AlertSound
       value: 
       objectReference: {fileID: 8300000, guid: d82ce261446d9493ab9e424042c93303, type: 3}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: speedForce
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: AttackSound
       value: 
@@ -4231,7 +4263,11 @@ PrefabInstance:
       objectReference: {fileID: 1340770997}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rangeOfView
-      value: 5
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: rotationSpeed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: minimumDistance
@@ -5029,7 +5065,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: speed
-      value: 1200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: CanPatrol
@@ -5039,6 +5075,10 @@ PrefabInstance:
       propertyPath: AlertSound
       value: 
       objectReference: {fileID: 8300000, guid: d82ce261446d9493ab9e424042c93303, type: 3}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: speedForce
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: AttackSound
       value: 
@@ -5053,7 +5093,11 @@ PrefabInstance:
       objectReference: {fileID: 1143947732}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rangeOfView
-      value: 5
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: rotationSpeed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: minimumDistance

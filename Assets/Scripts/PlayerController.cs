@@ -11,13 +11,31 @@ public class PlayerController : MonoBehaviour
 
 
     // Start is called before the first frame update
-    [SerializeField] private float velocidadPlayer = 1000f;
-    [SerializeField] private float velocidadPlayerBack = 800f;
+    [SerializeField] private float speedForce = 50f;
+    [SerializeField] private float speedForceBack = 8f;
     [SerializeField] private float fuerzaSalto = 500f;
     [SerializeField] private float velocidadGiro = 10f;
     [SerializeField] private Animator animaPlayer;
     [SerializeField] private AudioClip walkSound;
     [SerializeField] LayerMask groundLayer;
+
+
+    float SpeedForce
+    {
+        get { return speedForce * Time.deltaTime * 1000; }
+    }
+
+    float SpeedForceBack
+    {
+        get { return speedForceBack * Time.deltaTime * 1000; }
+    }
+
+    float JumpForce
+    {
+        get { return fuerzaSalto * Time.deltaTime * 1000; }
+    }
+
+
 
     private bool isGrounded = true;
     private bool isRotate = false;
@@ -98,19 +116,19 @@ public class PlayerController : MonoBehaviour
         {
             if (ejeVertical > 0)
             {
-                rbPlayer.AddRelativeForce(Vector3.forward * velocidadPlayer * ejeVertical, ForceMode.Force);
+                rbPlayer.AddRelativeForce(Vector3.forward * speedForce * ejeVertical, ForceMode.Force);
                 movimiento = Movimiento.UP;
             }
             else if (ejeVertical < 0)
             {
-                rbPlayer.AddRelativeForce(Vector3.forward * velocidadPlayerBack * ejeVertical, ForceMode.Force);
+                rbPlayer.AddRelativeForce(Vector3.forward * speedForceBack * ejeVertical, ForceMode.Force);
                 movimiento = Movimiento.DOWN;
             }
         }
 
         if (Input.GetKey(KeyCode.Space) && isGrounded && ejeVertical >= 0)
         {
-            rbPlayer.AddRelativeForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
+            rbPlayer.AddRelativeForce(Vector3.up * JumpForce, ForceMode.Impulse);
             movimiento = Movimiento.JUMP;
         }
 
@@ -132,6 +150,7 @@ public class PlayerController : MonoBehaviour
         animaPlayer.SetBool("IsWalkBack", isRotate || ejeVDown);
         animaPlayer.SetBool("IsJump", !isGrounded);        
         animaPlayer.SetBool("IsIdle", !ejeVDown && !ejeVUp && !isRotate && !animaPlayer.GetBool("IsJump"));
+        animaPlayer.SetBool("IsHit", false);
 
         //Debug.Log($"IsIdle {animaPlayer.GetBool("IsIdle")} ; IsJump {animaPlayer.GetBool("IsJump")}; IsRun {animaPlayer.GetBool("IsRun")} ; IsWalkBack {animaPlayer.GetBool("IsWalkBack")}; giroPlayer {giroPlayer}; isGround {isGrounded}");
 
@@ -179,6 +198,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_life <= 0)
             animaPlayer.SetBool("IsHit", true);
+
 
         lifePlayer += _life;
     }
