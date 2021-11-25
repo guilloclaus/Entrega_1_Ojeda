@@ -151,17 +151,14 @@ public class MutantController : MonoBehaviour
         {
             animaMutant.SetBool("IsAttack", true);
             animaMutant.SetBool("IsWalk", false);
-            //animaMutant.SetBool("IsRoaring", false);
-            //animaMutant.SetBool("IsIdle", false);
+            animaMutant.SetBool("IsRoaring", false);
             isAttack = true;
         }
         else
         {
             rbEnemy.AddRelativeForce(Vector3.forward * Speed, ForceMode.Force);
-            //animaMutant.SetBool("IsIdle", false);
             animaMutant.SetBool("IsAttack", false);
             animaMutant.SetBool("IsRoaring", false);
-            //animaMutant.SetBool("IsAttack", false);
             animaMutant.SetBool("IsWalk", true);
             isAttack = false;
         }
