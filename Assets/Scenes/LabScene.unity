@@ -185,6 +185,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: attack
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: CanPatrol
       value: 0
       objectReference: {fileID: 0}
@@ -218,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: minimumDistance
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: waypoints.Array.size
@@ -255,6 +259,18 @@ PrefabInstance:
     - target: {fileID: 3290461030219703891, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: m_RootOrder
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3290461030219703891, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3290461030219703891, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3290461030219703891, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3290461030219703891, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2704,7 +2720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: minimumDistance
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: waypoints.Array.size
@@ -5101,7 +5117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: minimumDistance
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: waypoints.Array.size

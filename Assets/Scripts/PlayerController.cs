@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
             movimiento = Movimiento.JUMP;
         }
 
-        if (!audioPlayer.isPlaying && ejeVertical != 0)
+        if (!audioPlayer.isPlaying && ejeVertical != 0 && isGrounded)
         {
             audioPlayer.PlayOneShot(walkSound, 0.5f);
         }

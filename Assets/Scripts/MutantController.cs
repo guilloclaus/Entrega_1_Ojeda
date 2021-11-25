@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class MutantController : MonoBehaviour
@@ -10,6 +12,7 @@ public class MutantController : MonoBehaviour
     {
         get { return speedForce * Time.deltaTime * 1000; }
     }
+
     [SerializeField] float rotationSpeed;
     [SerializeField] float minimumDistance;
     [SerializeField] float rangeOfView;
@@ -80,6 +83,7 @@ public class MutantController : MonoBehaviour
                 if (animaMutant.GetCurrentAnimatorStateInfo(0).IsName("Mutant Roaring") && !animaMutant.IsInTransition(0))
                 {
                     IsRoaring = true;
+                    doTask();
                 }
             }
 
@@ -97,6 +101,7 @@ public class MutantController : MonoBehaviour
         {
             animaMutant.SetBool("IsWalk", false);
             animaMutant.SetBool("IsRoaring", false);
+            animaMutant.SetBool("IsRun", false);
             animaMutant.SetBool("IsIdle", true);
         }
 
@@ -107,15 +112,19 @@ public class MutantController : MonoBehaviour
         //ControlAnimacion();
     }
 
+    async void doTask()
+    {
+        await Task.Delay(TimeSpan.FromSeconds(5f));
+    }
+
     private void Patrol()
     {
 
 
         Vector3 deltaVector = waypoints[currentIndex].position - transform.position;
         Vector3 direction = deltaVector.normalized;
-        //transform.rotation = Quaternion.LookRotation(deltaVector, Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), rotationSpeed * Time.deltaTime);
-        rbEnemy.AddRelativeForce(Vector3.forward * Speed, ForceMode.Force);
+        rbEnemy.AddRelativeForce(Vector3.forward * Speed , ForceMode.Force);
         float distance = deltaVector.magnitude;
 
         if (distance < 1.5f)
@@ -139,6 +148,7 @@ public class MutantController : MonoBehaviour
         animaMutant.SetBool("IsWalk", true);
         animaMutant.SetBool("IsRoaring", false);
         animaMutant.SetBool("IsIdle", false);
+        animaMutant.SetBool("IsRun", false);
     }
 
     private void ChaseCharacter()
@@ -152,14 +162,17 @@ public class MutantController : MonoBehaviour
             animaMutant.SetBool("IsAttack", true);
             animaMutant.SetBool("IsWalk", false);
             animaMutant.SetBool("IsRoaring", false);
+            animaMutant.SetBool("IsRun", false);
+            rbEnemy.velocity = Vector3.zero;
             isAttack = true;
         }
         else
         {
-            rbEnemy.AddRelativeForce(Vector3.forward * Speed, ForceMode.Force);
+            rbEnemy.AddRelativeForce(Vector3.forward * Speed * 1.25f, ForceMode.Force);
             animaMutant.SetBool("IsAttack", false);
             animaMutant.SetBool("IsRoaring", false);
-            animaMutant.SetBool("IsWalk", true);
+            animaMutant.SetBool("IsWalk", false);
+            animaMutant.SetBool("IsRun", true);
             isAttack = false;
         }
 
@@ -167,7 +180,6 @@ public class MutantController : MonoBehaviour
 
     private void ControlAnimacion()
     {
-
 
         animaMutant.SetBool("IsWalk", isWalk);
         animaMutant.SetBool("IsIdle", !isWalk && !isAttack);
@@ -181,8 +193,8 @@ public class MutantController : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-
             playerObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * Speed * -0.25f, ForceMode.Impulse);
+
             GameManager.instance.AddPlayerLife(-attack);
         }
     }
