@@ -112,6 +112,7 @@ public class MutantController : MonoBehaviour
 
         if (animaMutant.GetCurrentAnimatorStateInfo(0).IsName("Mutant Dying") && !animaMutant.IsInTransition(0))
         {
+            rbEnemy.velocity = Vector3.zero;
             animaMutant.SetBool("IsHit", false);
         }
 
@@ -199,7 +200,7 @@ public class MutantController : MonoBehaviour
         if (other.tag == "Player")
         {
             playerObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * Speed * -0.25f, ForceMode.Impulse);
-
+            
             GameManager.instance.AddPlayerLife(-attack);
 
         }

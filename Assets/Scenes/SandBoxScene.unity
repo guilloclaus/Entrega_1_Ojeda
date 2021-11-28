@@ -190,7 +190,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: attack
-      value: 50
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: shield
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: CanPatrol
@@ -218,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 54941798}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rangeOfView
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rotationSpeed
@@ -680,7 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5577163, g: 0.6022325, b: 0.7830189, a: 0.27058825}
+  m_Color: {r: 0.18903525, g: 0.19676901, b: 0.2264151, a: 0.7882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2685,10 +2689,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5629011036f58b44fb91a5f6e1d0a700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 
-  shield: 
-  attack: 
-  objPlayer: {fileID: 0}
+  life: {fileID: 1518182018}
+  shield: {fileID: 2036718676}
+  attack: {fileID: 1811688365}
+  objPlayer: {fileID: 1059914629}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3029,8 +3033,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1891497296}
     m_Modifications:
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: life
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: speed
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: attack
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: shield
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: CanPatrol
@@ -3058,7 +3074,7 @@ PrefabInstance:
       objectReference: {fileID: 786605108}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rangeOfView
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rotationSpeed
@@ -4809,8 +4825,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1891497296}
     m_Modifications:
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: life
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: speed
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: attack
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: shield
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: CanPatrol
@@ -4838,7 +4866,7 @@ PrefabInstance:
       objectReference: {fileID: 1340770997}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rangeOfView
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rotationSpeed
@@ -4846,7 +4874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: minimumDistance
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: waypoints.Array.size
@@ -5644,8 +5672,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1891497296}
     m_Modifications:
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: life
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: speed
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: attack
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
+      propertyPath: shield
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: CanPatrol
@@ -5673,7 +5713,7 @@ PrefabInstance:
       objectReference: {fileID: 1143947732}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rangeOfView
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -341503873730013697, guid: 00208dc027823434da2bcbf0ebf58ab0, type: 3}
       propertyPath: rotationSpeed
@@ -5815,7 +5855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6385,7 +6425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7140,7 +7180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

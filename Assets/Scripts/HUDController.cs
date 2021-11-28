@@ -1,13 +1,13 @@
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 
 public class HUDController : MonoBehaviour
 {
 
-    [SerializeField] private string life;
-    [SerializeField] private string shield;
-    [SerializeField] private string attack;
+    [SerializeField] private Text life;
+    [SerializeField] private Text shield;
+    [SerializeField] private Text attack;
 
     [SerializeField] private GameObject objPlayer;
 
@@ -26,9 +26,9 @@ public class HUDController : MonoBehaviour
 
     private void Player()
     {
-        life = objPlayer.GetComponent<PlayerController>().Life.ToString();
-        shield = objPlayer.GetComponent<PlayerController>().Shield.ToString();
-        attack = objPlayer.GetComponent<PlayerController>().Attack.ToString();
+        life.text = objPlayer.GetComponent<PlayerController>().Life.ToString();
+        shield.text = objPlayer.GetComponent<PlayerController>().Shield.ToString();
+        attack.text = objPlayer.GetComponent<PlayerController>().Attack.ToString();
 
     }
 
