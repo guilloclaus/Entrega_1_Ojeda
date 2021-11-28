@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour
 {
-
     [SerializeField] private Text life;
     [SerializeField] private Text shield;
     [SerializeField] private Text attack;
