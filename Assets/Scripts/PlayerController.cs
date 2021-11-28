@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private bool isRotate = false;
     private bool isWalk = false;
     private bool isHit = false;
+    private bool isPunch = false;
 
 
     [SerializeField] private int lifePlayer;
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour
         animaPlayer.SetBool("IsRun", false);
         animaPlayer.SetBool("IsWalkBack", false);
         animaPlayer.SetBool("IsJump", false);
+        animaPlayer.SetBool("IsPunch", false);
 
     }
 
@@ -132,6 +134,12 @@ public class PlayerController : MonoBehaviour
             movimiento = Movimiento.JUMP;
         }
 
+        if (Input.GetMouseButton(0))  
+        {
+            isPunch = true;
+        }
+        else isPunch = false;
+
         if (!audioPlayer.isPlaying && ejeVertical != 0 && isGrounded)
         {
             audioPlayer.PlayOneShot(walkSound, 0.5f);
@@ -148,9 +156,10 @@ public class PlayerController : MonoBehaviour
 
         animaPlayer.SetBool("IsRun", ejeVUp || Input.GetAxis("Vertical") > 0);
         animaPlayer.SetBool("IsWalkBack", isRotate || ejeVDown);
-        animaPlayer.SetBool("IsJump", !isGrounded);        
+        animaPlayer.SetBool("IsJump", !isGrounded);
         animaPlayer.SetBool("IsIdle", !ejeVDown && !ejeVUp && !isRotate && !animaPlayer.GetBool("IsJump"));
         animaPlayer.SetBool("IsHit", false);
+        animaPlayer.SetBool("IsPunch", isPunch);
 
         //Debug.Log($"IsIdle {animaPlayer.GetBool("IsIdle")} ; IsJump {animaPlayer.GetBool("IsJump")}; IsRun {animaPlayer.GetBool("IsRun")} ; IsWalkBack {animaPlayer.GetBool("IsWalkBack")}; giroPlayer {giroPlayer}; isGround {isGrounded}");
 
@@ -161,6 +170,18 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.layer == 6)
         {
             isGrounded = true;
+        }
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Golpe al enemigo");
+
+            GameObject objEnemy = other.gameObject;
+            objEnemy.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedForce * -0.25f, ForceMode.Impulse);
         }
     }
 
@@ -208,6 +229,8 @@ public class PlayerController : MonoBehaviour
     public int Shield { get { return shieldPlayer; } set { shieldPlayer = value; } }
     public int Attack { get { return attackPlayer; } set { attackPlayer = value; } }
     public int Life { get { return lifePlayer; } set { lifePlayer = value; } }
-    
+
+
+
 
 }
