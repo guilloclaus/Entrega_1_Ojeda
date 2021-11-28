@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        Debug.Log($"Score: {scorePlayer}, Player: Life {playerControler.Life}, Attack {playerControler.Attack}, Shield {playerControler.Shield}");
+        //Debug.Log($"Score: {scorePlayer}, Player: Life {playerControler.Life}, Attack {playerControler.Attack}, Shield {playerControler.Shield}");
 
     }
 
@@ -67,7 +68,6 @@ public class GameManager : MonoBehaviour
     {
         playerControler.GetComponent<PlayerController>().AddLife(_life);
     }
-
 
 
 }

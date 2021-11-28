@@ -176,12 +176,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy" && isPunch)
         {
             Debug.Log("Golpe al enemigo");
 
             GameObject objEnemy = other.gameObject;
             objEnemy.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedForce * -0.25f, ForceMode.Impulse);
+            objEnemy.GetComponent<MutantController>().AddLife(-10);
         }
     }
 

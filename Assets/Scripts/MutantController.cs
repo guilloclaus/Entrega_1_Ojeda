@@ -58,8 +58,7 @@ public class MutantController : MonoBehaviour
     }
 
     void Update()
-    {
-
+    {        
 
         if (Vector3.Distance(transform.position, playerObject.transform.position) <= rangeOfView)
         {
@@ -110,6 +109,12 @@ public class MutantController : MonoBehaviour
     private void FixedUpdate()
     {
         //ControlAnimacion();
+
+        if (animaMutant.GetCurrentAnimatorStateInfo(0).IsName("Mutant Dying") && !animaMutant.IsInTransition(0))
+        {
+            animaMutant.SetBool("IsHit", false);
+        }
+
     }
 
     async void doTask()
@@ -196,7 +201,19 @@ public class MutantController : MonoBehaviour
             playerObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * Speed * -0.25f, ForceMode.Impulse);
 
             GameManager.instance.AddPlayerLife(-attack);
+
         }
+    }
+
+    public void AddLife(int _life)
+    {
+        if (_life <= 0)
+            animaMutant.SetBool("IsHit", true);
+
+
+
+
+        life += _life;
     }
 
 
