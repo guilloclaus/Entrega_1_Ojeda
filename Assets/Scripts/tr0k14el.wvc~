@@ -40,7 +40,7 @@ public class MutantController : MonoBehaviour
 
     int currentIndex = 0;
     bool goBack = false;
-    float i = 500f;
+    float i = 1f;
     bool iSeeTheCharacter = false;
 
     GameObject playerObject;
@@ -67,7 +67,6 @@ public class MutantController : MonoBehaviour
         {
             isDead = true;
 
-            animaMutant.SetBool("IsHit", true);
             animaMutant.SetBool("IsDead", true);
 
         }
@@ -115,17 +114,13 @@ public class MutantController : MonoBehaviour
                 animaMutant.SetBool("IsRoaring", false);
                 animaMutant.SetBool("IsRun", false);
                 animaMutant.SetBool("IsIdle", true);
-                animaMutant.SetBool("IsDead", false);
             }
         }
-        else if (isDead)
+        else if (!isDisaper || isDead)
         {
 
-            i -= 1;
-
-            if (i <= 0)
-                Destroy(gameObject);
-            
+            i-=0.1f
+                gameObject.GetComponent<Renderer>().material.color = new Color(i, i, i, i);
 
         }
     }

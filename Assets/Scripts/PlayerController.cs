@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Mover();
+
         ControlAnimacion();
     }
 
@@ -131,10 +132,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && isGrounded && ejeVertical >= 0)
         {
             rbPlayer.AddRelativeForce(Vector3.up * JumpForce, ForceMode.Impulse);
-            movimiento = Movimiento.JUMP;
+
         }
 
-        if (Input.GetMouseButton(0))  
+        if (Input.GetMouseButton(0))
         {
             isPunch = true;
         }
@@ -182,7 +183,7 @@ public class PlayerController : MonoBehaviour
 
             GameObject objEnemy = other.gameObject;
             objEnemy.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedForce * -1f, ForceMode.Impulse);
-            objEnemy.GetComponent<MutantController>().AddLife(-10);
+            objEnemy.GetComponent<MutantController>().AddLife(-Attack);
         }
     }
 
@@ -194,16 +195,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private bool IsGrounded()
+    //private void IsGrounded()
     //{
-    //    if (Physics.Raycast(transform.position, Vector3.down, 0.05f, groundLayer))
-    //    {         
-    //        return true;
-    //    }
-    //    else
+    //    if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z), Vector3.down, 0.5f, groundLayer) &&
+    //        Physics.Raycast(new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z), Vector3.down, 0.5f, groundLayer) &&
+    //        Physics.Raycast(new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z), Vector3.down, 0.05f, groundLayer) &&
+    //        Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.5f), Vector3.down, 0.05f, groundLayer) &&
+    //        Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.5f), Vector3.down, 0.05f, groundLayer))
     //    {
-    //        return false;
+    //        isGrounded = true;
     //    }
+    //    else { isGrounded = false; }
     //}
 
 
