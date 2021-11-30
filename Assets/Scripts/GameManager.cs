@@ -27,9 +27,6 @@ public class GameManager : MonoBehaviour
             playerControler = playerObject.GetComponent<PlayerController>();
 
             scorePlayer = 0;
-            playerControler.Attack = 0;
-            playerControler.Shield = 0;
-            playerControler.Life = 100;
         }
         else
         {

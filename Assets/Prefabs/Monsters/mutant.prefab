@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 4863413991288263817}
   - component: {fileID: 5768263051000081420}
   m_Layer: 0
-  m_Name: Mutant
+  m_Name: mutant
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -438,15 +438,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: []
-  speedForce: 0
-  rotationSpeed: 5
-  minimumDistance: 5
-  rangeOfView: 10
-  AlertSound: {fileID: 0}
-  DangerSound: {fileID: 0}
-  AttackSound: {fileID: 0}
-  animaMutant: {fileID: 0}
-  life: 0
+  speedForce: 70
+  rotationSpeed: 3
+  minimumDistance: 1.5
+  rangeOfView: 5
+  AlertSound: {fileID: 8300000, guid: d82ce261446d9493ab9e424042c93303, type: 3}
+  DangerSound: {fileID: 8300000, guid: 90105c98a76ad4dec9ec990d26140a70, type: 3}
+  AttackSound: {fileID: 8300000, guid: 90105c98a76ad4dec9ec990d26140a70, type: 3}
+  animaMutant: {fileID: 8883979233169194025}
+  life: 100
   shield: 0
   attack: 10
   CanPatrol: 0

@@ -118,16 +118,7 @@ public class MutantController : MonoBehaviour
                 animaMutant.SetBool("IsDead", false);
             }
         }
-        else if (isDead)
-        {
 
-            i -= 1;
-
-            if (i <= 0)
-                Destroy(gameObject);
-            
-
-        }
     }
 
     private void FixedUpdate()
@@ -138,6 +129,13 @@ public class MutantController : MonoBehaviour
         {
             rbEnemy.velocity = Vector3.zero;
             animaMutant.SetBool("IsHit", false);
+        }
+
+        if (isDead)
+        {
+            i -= 1;
+            if (i <= 0)
+                Destroy(gameObject);
         }
 
 
