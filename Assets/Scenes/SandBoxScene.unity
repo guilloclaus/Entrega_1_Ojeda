@@ -7639,6 +7639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mutant_2
       objectReference: {fileID: 0}
+    - target: {fileID: 488048847058911783, guid: 8af4aab6af79e0f40885e10d0ae41e5d, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 976776974457116829, guid: 8af4aab6af79e0f40885e10d0ae41e5d, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -7653,7 +7657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 976776974457116829, guid: 8af4aab6af79e0f40885e10d0ae41e5d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.19882393
+      value: 1.39
       objectReference: {fileID: 0}
     - target: {fileID: 976776974457116829, guid: 8af4aab6af79e0f40885e10d0ae41e5d, type: 3}
       propertyPath: m_LocalRotation.w
