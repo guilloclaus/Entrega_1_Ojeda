@@ -4,66 +4,53 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class MutantController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
-    [SerializeField] Transform[] waypoints;
-    [SerializeField] float speedForce;
-    float Speed
-    {
-        get { return speedForce * Time.deltaTime * 1000; }
-    }
 
-    [SerializeField] float rotationSpeed;
-    [SerializeField] float minimumDistance;
-    [SerializeField] float rangeOfView;
+    [SerializeField] protected EnemyProperty enemyData;
     [SerializeField] private AudioClip AlertSound;
     [SerializeField] private AudioClip DangerSound;
     [SerializeField] private AudioClip AttackSound;
     [SerializeField] private Animator animaMutant;
-    [SerializeField] private int life;
-    [SerializeField] private int shield;
-    [SerializeField] private int attack;
+    [SerializeField] Transform[] waypoints;
     [SerializeField] bool CanPatrol = false;
 
+    private GameObject playerObject;
+    private AudioSource audioEnemy;
+    private Rigidbody rbEnemy;
+    private int Energia;
 
+    private float Speed
+    {
+        get { return enemyData.Velocidad * Time.deltaTime * 1000; }
+    }
 
     bool isGrounded = true;
-    bool isRotate = false;
     bool isWalk = false;
     bool IsRoaring = false;
     bool isAttack = false;
-    bool isPunch = false;
 
-    bool isDead = false;
-    bool isDisaper = false;
+
+    protected bool isDead = false;
+    protected bool iSeeTheCharacter = false;
 
 
     int currentIndex = 0;
     bool goBack = false;
-    float i = 500f;
-    bool iSeeTheCharacter = false;
-
-    GameObject playerObject;
-
-
-
-    AudioSource audioEnemy;
-    Rigidbody rbEnemy;
 
 
     private void Start()
     {
         playerObject = GameManager.playerObject;
-
         rbEnemy = GetComponent<Rigidbody>();
         audioEnemy = GetComponent<AudioSource>();
-
         isDead = false;
+        Energia = enemyData.Energia;
     }
 
     void Update()
     {
-        if (life <= 0 && !isDead)
+        if (Energia <= 0 && !isDead)
         {
             isDead = true;
 
@@ -71,11 +58,9 @@ public class MutantController : MonoBehaviour
             animaMutant.SetBool("IsDead", true);
 
         }
-
-
         if (!isDead)
         {
-            if (Vector3.Distance(transform.position, playerObject.transform.position) <= rangeOfView)
+            if (Vector3.Distance(transform.position, playerObject.transform.position) <= enemyData.RangoVision)
             {
                 iSeeTheCharacter = true;
             }
@@ -115,48 +100,36 @@ public class MutantController : MonoBehaviour
                 animaMutant.SetBool("IsDead", false);
             }
         }
-
     }
 
     private void FixedUpdate()
     {
-        //ControlAnimacion();
-
         if (animaMutant.GetCurrentAnimatorStateInfo(0).IsName("Mutant Dying") && !animaMutant.IsInTransition(0))
         {
             rbEnemy.velocity = Vector3.zero;
             animaMutant.SetBool("IsHit", false);
         }
-
         if (isDead)
         {
-            i -= 1;
-            if (i <= 0)
-                Destroy(gameObject);
+            StartCoroutine(WaitingForDead());
         }
-
-
     }
 
-    IEnumerable WaitAnimation(int seconds,string aniParametro, bool state)
+    IEnumerator WaitingForDead()
     {
-        animaMutant.SetBool(aniParametro, state);
-        yield return new WaitForSeconds(seconds);
-
-
-    } 
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
+    }
 
     private void Patrol()
     {
-
-
         Vector3 deltaVector = waypoints[currentIndex].position - transform.position;
         Vector3 direction = deltaVector.normalized;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), enemyData.VelocidadGiro * Time.deltaTime);
         rbEnemy.AddRelativeForce(Vector3.forward * Speed, ForceMode.Force);
         float distance = deltaVector.magnitude;
 
-        if (distance < 1.5f)
+        if (distance < enemyData.RangoAtaque)
         {
             if (currentIndex >= waypoints.Length - 1)
             {
@@ -184,9 +157,9 @@ public class MutantController : MonoBehaviour
     {
 
         Vector3 direction = (playerObject.transform.position - transform.position).normalized;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), enemyData.VelocidadGiro * Time.deltaTime);
 
-        if (Vector3.Distance(transform.position, playerObject.transform.position) <= minimumDistance)
+        if (Vector3.Distance(transform.position, playerObject.transform.position) <= enemyData.RangoAtaque)
         {
             animaMutant.SetBool("IsAttack", true);
             animaMutant.SetBool("IsWalk", false);
@@ -207,15 +180,12 @@ public class MutantController : MonoBehaviour
 
     }
 
-    private void ControlAnimacion()
+    public void AddLife(int _life)
     {
+        if (_life <= 0)
+            animaMutant.SetBool("IsHit", true);
 
-        animaMutant.SetBool("IsWalk", isWalk);
-        animaMutant.SetBool("IsIdle", !isWalk && !isAttack);
-        animaMutant.SetBool("IsRoaring", isAttack);
-
-        Debug.Log($"Walk {animaMutant.GetBool("IsWalk")} Idle {animaMutant.GetBool("IsIdle")} ");
-
+        Energia += _life;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -223,36 +193,19 @@ public class MutantController : MonoBehaviour
         if (other.tag == "Player")
         {
             playerObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * Speed * -0.25f, ForceMode.Impulse);
-
-            GameManager.instance.AddPlayerLife(-attack);
-
+            GameManager.instance.AddPlayerLife(-enemyData.Ataque);
         }
     }
-
-    public void AddLife(int _life)
-    {
-        if (_life <= 0)
-            animaMutant.SetBool("IsHit", true);
-
-        life += _life;
-    }
-
-
     private void OnDrawGizmos()
     {
 
         if (iSeeTheCharacter)
-        {
             Gizmos.color = Color.red;
-        }
         else
-        {
             Gizmos.color = Color.green;
-        }
 
 
-        Gizmos.DrawWireSphere(transform.position, minimumDistance);
-
-        Gizmos.DrawWireSphere(transform.position, rangeOfView);
+        Gizmos.DrawWireSphere(transform.position, enemyData.RangoAtaque);
+        Gizmos.DrawWireSphere(transform.position, enemyData.RangoVision);
     }
 }

@@ -182,8 +182,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Golpe al enemigo");
 
             GameObject objEnemy = other.gameObject;
-            objEnemy.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedForce * -1f, ForceMode.Impulse);
-            objEnemy.GetComponent<MutantController>().AddLife(-Attack);
+            objEnemy.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedForce * -0.5f, ForceMode.Impulse);
+            objEnemy.GetComponent<EnemyController>().AddLife(-Attack);
         }
     }
 
