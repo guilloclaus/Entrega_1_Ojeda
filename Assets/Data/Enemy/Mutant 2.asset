@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Mutant 2
   m_EditorClassIdentifier: Assembly-CSharp::Property
   energia: 100
-  escudo: 2
+  escudo: 3
   ataque: 10
   velocidad: 60
   velocidadGiro: 8
   rangoVision: 7
-  rangoAtaque: 0.75
+  rangoAtaque: 1
   puntuacion: 1000
