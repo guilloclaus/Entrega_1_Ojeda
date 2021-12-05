@@ -5,10 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-
-
     private enum Movimiento { UP, DOWN, LEFT, RIGHT, JUMP, WALK, IDLE }
-
 
     // Start is called before the first frame update
     [SerializeField] private float speedForce = 50f;
@@ -18,7 +15,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animaPlayer;
     [SerializeField] private AudioClip walkSound;
     [SerializeField] LayerMask groundLayer;
-
 
     float SpeedForce
     {
@@ -35,32 +31,20 @@ public class PlayerController : MonoBehaviour
         get { return fuerzaSalto * Time.deltaTime * 1000; }
     }
 
-
-
     private bool isGrounded = true;
     private bool isRotate = false;
     private bool isWalk = false;
     private bool isHit = false;
     private bool isPunch = false;
-
+    private bool isDead = false;
 
     [SerializeField] private int lifePlayer;
     [SerializeField] private int shieldPlayer;
     [SerializeField] private int attackPlayer;
 
-
     private Movimiento movimiento;
-
-
-
     private float giroPlayer = 0f;
     private AudioSource audioPlayer;
-
-
-
-    //[SerializeField] private Animator animaPlayer = new Animator();
-
-
     private Rigidbody rbPlayer;
 
     // Start is called before the first frame update
@@ -77,17 +61,15 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        //isGrounded = IsGrounded();
+        IamAlive();
     }
 
     private void FixedUpdate()
     {
         Mover();
-
         ControlAnimacion();
     }
 
@@ -161,7 +143,7 @@ public class PlayerController : MonoBehaviour
         animaPlayer.SetBool("IsIdle", !ejeVDown && !ejeVUp && !isRotate && !animaPlayer.GetBool("IsJump"));
         animaPlayer.SetBool("IsHit", false);
         animaPlayer.SetBool("IsPunch", isPunch);
-
+        animaPlayer.SetBool("IsDead", isDead);
         //Debug.Log($"IsIdle {animaPlayer.GetBool("IsIdle")} ; IsJump {animaPlayer.GetBool("IsJump")}; IsRun {animaPlayer.GetBool("IsRun")} ; IsWalkBack {animaPlayer.GetBool("IsWalkBack")}; giroPlayer {giroPlayer}; isGround {isGrounded}");
 
     }
@@ -210,6 +192,8 @@ public class PlayerController : MonoBehaviour
 
 
 
+
+
     public void AddShield(int _shield)
     {
         shieldPlayer += _shield;
@@ -227,13 +211,20 @@ public class PlayerController : MonoBehaviour
         lifePlayer += _life;
     }
 
-
-
     public int Shield { get { return shieldPlayer; } set { shieldPlayer = value; } }
     public int Attack { get { return attackPlayer; } set { attackPlayer = value; } }
     public int Life { get { return lifePlayer; } set { lifePlayer = value; } }
 
-
+    private void IamAlive()
+    {
+        if (Life <= 0)
+        {
+            isDead = true;
+        }
+        else {
+            isDead = false;
+        }
+    }
 
 
 }
