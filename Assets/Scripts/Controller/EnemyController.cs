@@ -32,11 +32,19 @@ public class EnemyController : MonoBehaviour
 
 
     protected bool isDead = false;
+    private bool PlayerAlert = true;
     protected bool iSeeTheCharacter = false;
 
 
     int currentIndex = 0;
     bool goBack = false;
+
+    private void Awake()
+    {
+
+        PlayerEvents.onDead += PlayerDead;
+    }
+
 
 
     private void Start()
@@ -60,7 +68,7 @@ public class EnemyController : MonoBehaviour
         }
         if (!isDead)
         {
-            if (Vector3.Distance(transform.position, playerObject.transform.position) <= enemyData.RangoVision)
+            if (Vector3.Distance(transform.position, playerObject.transform.position) <= enemyData.RangoVision && PlayerAlert)
             {
                 iSeeTheCharacter = true;
             }
@@ -70,6 +78,7 @@ public class EnemyController : MonoBehaviour
                 IsRoaring = false;
                 isAttack = false;
             }
+
             if (iSeeTheCharacter)
             {
                 animaMutant.SetBool("IsWalk", false);
@@ -151,8 +160,8 @@ public class EnemyController : MonoBehaviour
         animaMutant.SetBool("IsRoaring", false);
         animaMutant.SetBool("IsIdle", false);
         animaMutant.SetBool("IsRun", false);
+        animaMutant.SetBool("IsAttack", false);
     }
-
     private void ChaseCharacter()
     {
 
@@ -179,7 +188,6 @@ public class EnemyController : MonoBehaviour
         }
 
     }
-
     public void AddLife(int _life)
     {
         if (_life <= 0)
@@ -188,9 +196,14 @@ public class EnemyController : MonoBehaviour
         Energia += _life;
     }
 
+    private void PlayerDead()
+    {
+        PlayerAlert = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && isAttack)
         {
             playerObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * Speed * -0.25f, ForceMode.Impulse);
             GameManager.instance.AddPlayerLife(-enemyData.Ataque);

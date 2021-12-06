@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +17,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
 
-
-
         if (instance == null)
         {
             instance = this;
@@ -25,6 +24,7 @@ public class GameManager : MonoBehaviour
 
             playerObject = GameObject.FindGameObjectWithTag("Player");
             playerControler = playerObject.GetComponent<PlayerController>();
+            PlayerEvents.onDead += PlayerDead;
 
             scorePlayer = 0;
         }
@@ -34,20 +34,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void PlayerDead()
     {
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        //Debug.Log($"Score: {scorePlayer}, Player: Life {playerControler.Life}, Attack {playerControler.Attack}, Shield {playerControler.Shield}");
-
-    }
-
 
     public void AddScore(int _scorePlayer)
     {
@@ -65,6 +55,5 @@ public class GameManager : MonoBehaviour
     {
         playerControler.GetComponent<PlayerController>().AddLife(_life);
     }
-
 
 }

@@ -22,25 +22,36 @@ public class DoorController : MonoBehaviour
 
         if (other.gameObject.tag == "Player" && IsAutomatic)
         {
-            animaDoor.SetBool("IsClose", false);
             animaDoor.SetBool("IsOpen", true);
         }
+        else Debug.LogWarning("LA PUERTA NO ESTA HABILITADA");
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player" && IsAutomatic)
         {
-            animaDoor.SetBool("IsClose", true);
             animaDoor.SetBool("IsOpen", false);
         }
+        else Debug.LogWarning("LA PUERTA NO ESTA HABILITADA");
     }
 
     public void OpenDoor(bool _open)
     {
-        animaDoor.SetBool("IsClose", !_open);
         animaDoor.SetBool("IsOpen", _open);
+        if (_open) Debug.LogWarning("La puerta fue Abierta");
     }
 
+    public void CloseDoor(bool _Close)
+    {
+        animaDoor.SetBool("IsOpen", !_Close);
+        if (!_Close) Debug.LogWarning("La puerta fue Cerrada");
+    }
+
+    public void AutomaticDoor(bool _automatic)
+    {
+        IsAutomatic = _automatic;
+        if (_automatic) Debug.LogWarning("La puerta fue Habilitada");
+    }
 
 }

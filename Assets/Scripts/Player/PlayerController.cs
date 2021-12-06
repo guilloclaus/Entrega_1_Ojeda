@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -47,6 +48,8 @@ public class PlayerController : MonoBehaviour
     private AudioSource audioPlayer;
     private Rigidbody rbPlayer;
 
+    public event Action PlayerDead;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,13 +67,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         IamAlive();
     }
 
     private void FixedUpdate()
     {
-        Mover();
-        ControlAnimacion();
+        if (!isDead)
+        {
+            Mover();
+            ControlAnimacion();
+        }
     }
 
     private void Mover()
@@ -101,12 +108,12 @@ public class PlayerController : MonoBehaviour
         {
             if (ejeVertical > 0)
             {
-                rbPlayer.AddRelativeForce(Vector3.forward * speedForce * ejeVertical, ForceMode.Force);
+                rbPlayer.AddRelativeForce(Vector3.forward * SpeedForce * ejeVertical, ForceMode.Force);
                 movimiento = Movimiento.UP;
             }
             else if (ejeVertical < 0)
             {
-                rbPlayer.AddRelativeForce(Vector3.forward * speedForceBack * ejeVertical, ForceMode.Force);
+                rbPlayer.AddRelativeForce(Vector3.forward * SpeedForceBack * ejeVertical, ForceMode.Force);
                 movimiento = Movimiento.DOWN;
             }
         }
@@ -177,22 +184,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private void IsGrounded()
-    //{
-    //    if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z), Vector3.down, 0.5f, groundLayer) &&
-    //        Physics.Raycast(new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z), Vector3.down, 0.5f, groundLayer) &&
-    //        Physics.Raycast(new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z), Vector3.down, 0.05f, groundLayer) &&
-    //        Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.5f), Vector3.down, 0.05f, groundLayer) &&
-    //        Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.5f), Vector3.down, 0.05f, groundLayer))
-    //    {
-    //        isGrounded = true;
-    //    }
-    //    else { isGrounded = false; }
-    //}
-
-
-
-
 
     public void AddShield(int _shield)
     {
@@ -205,7 +196,10 @@ public class PlayerController : MonoBehaviour
     public void AddLife(int _life)
     {
         if (_life <= 0)
+        {
             animaPlayer.SetBool("IsHit", true);
+            gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedForceBack * -0.25f, ForceMode.Impulse);
+        }
 
 
         lifePlayer += _life;
@@ -219,10 +213,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Life <= 0)
         {
+            Debug.Log("Player esta Muerto");
+            animaPlayer.SetBool("IsDead", true);
             isDead = true;
-        }
-        else {
-            isDead = false;
+            PlayerEvents.IsDead();
         }
     }
 
