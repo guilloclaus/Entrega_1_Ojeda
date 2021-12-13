@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Animator animaMutant;
     [SerializeField] Transform[] waypoints;
     [SerializeField] bool CanPatrol = false;
+    [SerializeField] NavMeshAgent enemyAgent;
+
+
 
     private GameObject playerObject;
     private AudioSource audioEnemy;
@@ -52,6 +56,7 @@ public class EnemyController : MonoBehaviour
         playerObject = GameManager.playerObject;
         rbEnemy = GetComponent<Rigidbody>();
         audioEnemy = GetComponent<AudioSource>();
+        enemyAgent = GetComponent<NavMeshAgent>();
         isDead = false;
         Energia = enemyData.Energia;
     }
@@ -79,7 +84,7 @@ public class EnemyController : MonoBehaviour
                 isAttack = false;
             }
 
-            if (iSeeTheCharacter)
+            if (iSeeTheCharacter && PlayerAlert)
             {
                 animaMutant.SetBool("IsWalk", false);
                 animaMutant.SetBool("IsRoaring", true);
@@ -133,10 +138,13 @@ public class EnemyController : MonoBehaviour
     private void Patrol()
     {
         Vector3 deltaVector = waypoints[currentIndex].position - transform.position;
-        Vector3 direction = deltaVector.normalized;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), enemyData.VelocidadGiro * Time.deltaTime);
-        rbEnemy.AddRelativeForce(Vector3.forward * Speed, ForceMode.Force);
+        //Vector3 direction = deltaVector.normalized;
+        //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), enemyData.VelocidadGiro * Time.deltaTime);
+        //rbEnemy.AddRelativeForce(Vector3.forward * Speed, ForceMode.Force);
         float distance = deltaVector.magnitude;
+
+        enemyAgent.destination = waypoints[currentIndex].position;
+
 
         if (distance < enemyData.RangoAtaque)
         {
@@ -165,8 +173,10 @@ public class EnemyController : MonoBehaviour
     private void ChaseCharacter()
     {
 
-        Vector3 direction = (playerObject.transform.position - transform.position).normalized;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), enemyData.VelocidadGiro * Time.deltaTime);
+        //Vector3 direction = (playerObject.transform.position - transform.position).normalized;
+        enemyAgent.destination = playerObject.transform.position;
+
+        //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), enemyData.VelocidadGiro * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, playerObject.transform.position) <= enemyData.RangoAtaque)
         {
@@ -174,12 +184,13 @@ public class EnemyController : MonoBehaviour
             animaMutant.SetBool("IsWalk", false);
             animaMutant.SetBool("IsRoaring", false);
             animaMutant.SetBool("IsRun", false);
-            rbEnemy.velocity = Vector3.zero;
+            //rbEnemy.velocity = Vector3.zero;
+            enemyAgent.velocity = Vector3.zero;
             isAttack = true;
         }
         else
         {
-            rbEnemy.AddRelativeForce(Vector3.forward * Speed * 1.25f, ForceMode.Force);
+            //arbEnemy.AddRelativeForce(Vector3.forward * Speed * 1.25f, ForceMode.Force);
             animaMutant.SetBool("IsAttack", false);
             animaMutant.SetBool("IsRoaring", false);
             animaMutant.SetBool("IsWalk", false);

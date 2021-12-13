@@ -17,11 +17,11 @@ TagManager:
   - Ground
   - Wall
   - GlobalPostProcessing
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Camera1PostProcessing
+  - Camera2ostProcessing
+  - Camera3PostProcessing
+  - Camera4PostProcessing
+  - Camera5PostProcessing
   - 
   - 
   - 
