@@ -39,9 +39,9 @@ public class PlayerController : MonoBehaviour
     private bool isPunch = false;
     private bool isDead = false;
 
-    [SerializeField] private int lifePlayer;
-    [SerializeField] private int shieldPlayer;
-    [SerializeField] private int attackPlayer;
+    [SerializeField] private int lifePlayer = 100;
+    [SerializeField] private int shieldPlayer = 100;
+    [SerializeField] private int attackPlayer = 100;
 
     private Movimiento movimiento;
     private float giroPlayer = 0f;

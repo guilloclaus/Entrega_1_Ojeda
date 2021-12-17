@@ -18,7 +18,7 @@ public class LandingController : MonoBehaviour
     }
     public void LodadScena()
     {
-        SceneManager.LoadScene("SandBoxScene");
+        SceneManager.LoadScene("Level_one");
     }
 
 
