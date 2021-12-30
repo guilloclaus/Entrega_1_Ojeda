@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8009395176697671883}
   - component: {fileID: 5156704104252590280}
   - component: {fileID: 7353011877093005563}
+  - component: {fileID: 8695767955373571179}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -66,15 +67,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc396663a049cd4ea3a0453c2493574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedForce: 50
-  speedForceBack: 8
+  speed: 1
+  speedBack: 0.5
   fuerzaSalto: 250
-  velocidadGiro: 10
+  Giro: 1
   animaPlayer: {fileID: 15395328217680112}
   walkSound: {fileID: 8300000, guid: 22b5b26c3429f42c482afafb562afc2a, type: 3}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   lifePlayer: 0
   shieldPlayer: 0
   attackPlayer: 0
@@ -200,6 +198,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.45099854
   m_Center: {x: 0, y: 1.1136804, z: -0.031183302}
+--- !u!143 &8695767955373571179
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73421746616378418}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2.17
+  m_Radius: 0.81
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1.1, z: 0}
 --- !u!1 &6264587758583357509
 GameObject:
   m_ObjectHideFlags: 0

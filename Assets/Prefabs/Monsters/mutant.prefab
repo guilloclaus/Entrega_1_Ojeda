@@ -553,10 +553,10 @@ MonoBehaviour:
   AlertSound: {fileID: 8300000, guid: d82ce261446d9493ab9e424042c93303, type: 3}
   DangerSound: {fileID: 8300000, guid: 90105c98a76ad4dec9ec990d26140a70, type: 3}
   AttackSound: {fileID: 8300000, guid: 5fdb461555f214ae3854e33eaa45ee3f, type: 3}
-  animaMutant: {fileID: 8883979233169194025}
   waypoints: []
-  CanPatrol: 0
   enemyAgent: {fileID: 0}
+  CanPatrol: 0
+  animaMutant: {fileID: 8883979233169194025}
   humoEnemigo: {fileID: 8710900105505999525}
 --- !u!195 &653978360299531990
 NavMeshAgent:
@@ -1501,8 +1501,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.76033413, y: 0.14892614, z: 0.28565526}
-  m_Center: {x: -0.31253913, y: -0.0448622, z: 0.20208406}
+  m_Size: {x: 0.87747014, y: 0.14892614, z: 0.60216004}
+  m_Center: {x: -0.3711027, y: -0.04486273, z: 0.20527777}
 --- !u!1 &8108005743783048827
 GameObject:
   m_ObjectHideFlags: 0

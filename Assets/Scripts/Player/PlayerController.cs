@@ -6,31 +6,19 @@ using System;
 public class PlayerController : MonoBehaviour
 {
 
-    private enum Movimiento { UP, DOWN, LEFT, RIGHT, JUMP, WALK, IDLE }
+    private CharacterController controller;
+    private Vector3 moveDirection = Vector3.zero;
+    private bool groundedPlayer;
+    private float gravityValue = -9.81f;
 
-    // Start is called before the first frame update
-    [SerializeField] private float speedForce = 50f;
-    [SerializeField] private float speedForceBack = 8f;
-    [SerializeField] private float fuerzaSalto = 500f;
-    [SerializeField] private float velocidadGiro = 10f;
+    [SerializeField] private float speed = 1f;
+    [SerializeField] private float speedBack = 0.5f;
+    [SerializeField] private float fuerzaSalto = 1f;
+    [SerializeField] private float Giro = 1f;
+
+
     [SerializeField] private Animator animaPlayer;
     [SerializeField] private AudioClip walkSound;
-    [SerializeField] LayerMask groundLayer;
-
-    float SpeedForce
-    {
-        get { return speedForce * Time.deltaTime * 1000; }
-    }
-
-    float SpeedForceBack
-    {
-        get { return speedForceBack * Time.deltaTime * 1000; }
-    }
-
-    float JumpForce
-    {
-        get { return fuerzaSalto * Time.deltaTime * 1000; }
-    }
 
     private bool isGrounded = true;
     private bool isRotate = false;
@@ -43,18 +31,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int shieldPlayer = 100;
     [SerializeField] private int attackPlayer = 100;
 
-    private Movimiento movimiento;
-    private float giroPlayer = 0f;
     private AudioSource audioPlayer;
-    private Rigidbody rbPlayer;
-
     public event Action PlayerDead;
 
     // Start is called before the first frame update
     void Start()
     {
-        rbPlayer = GetComponent<Rigidbody>();
         audioPlayer = GetComponent<AudioSource>();
+        controller = GetComponent<CharacterController>();
 
         animaPlayer.SetBool("IsIdle", true);
         animaPlayer.SetBool("IsRun", false);
@@ -67,7 +51,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         IamAlive();
     }
 
@@ -82,60 +65,40 @@ public class PlayerController : MonoBehaviour
 
     private void Mover()
     {
+
+        groundedPlayer = controller.isGrounded;
         float ejeVertical = Input.GetAxis("Vertical");
+        float ejeHorizontal = Input.GetAxis("Horizontal");
 
-        if (Input.GetKey(KeyCode.A) && isGrounded)
+        if (groundedPlayer)
         {
-            giroPlayer -= Time.deltaTime * velocidadGiro * 10;
-            transform.rotation = Quaternion.Euler(0, giroPlayer, 0);
-            isRotate = true;
-            movimiento = Movimiento.WALK;
+            moveDirection = transform.forward * ejeVertical * (ejeVertical > 0 ? speed : speedBack);
+            controller.Move(moveDirection * Time.deltaTime);
 
-        }
-        else if (Input.GetKey(KeyCode.D) && isGrounded)
-        {
-            giroPlayer += Time.deltaTime * velocidadGiro * 10;
-            transform.rotation = Quaternion.Euler(0, giroPlayer, 0);
-            isRotate = true;
-            movimiento = Movimiento.WALK;
-        }
-        else
-        {
-            isRotate = false;
-        }
+            transform.Rotate(0, ejeHorizontal * Giro * Time.deltaTime, 0);
+            isRotate = (ejeHorizontal != 0 ? true : false);
 
-        if (ejeVertical != 0 && isGrounded && !isWalk)
-        {
-            if (ejeVertical > 0)
+            if (Input.GetButtonDown("Jump") && groundedPlayer && !isRotate)
             {
-                rbPlayer.AddRelativeForce(Vector3.forward * SpeedForce * ejeVertical, ForceMode.Force);
-                movimiento = Movimiento.UP;
+                moveDirection.y += Mathf.Sqrt(fuerzaSalto * -3.0f * gravityValue);
             }
-            else if (ejeVertical < 0)
+
+            if (Input.GetMouseButton(0))
             {
-                rbPlayer.AddRelativeForce(Vector3.forward * SpeedForceBack * ejeVertical, ForceMode.Force);
-                movimiento = Movimiento.DOWN;
+                isPunch = true;
             }
-        }
-
-        if (Input.GetKey(KeyCode.Space) && isGrounded && ejeVertical >= 0)
-        {
-            rbPlayer.AddRelativeForce(Vector3.up * JumpForce, ForceMode.Impulse);
+            else isPunch = false;
 
         }
 
-        if (Input.GetMouseButton(0))
-        {
-            isPunch = true;
-        }
-        else isPunch = false;
+        moveDirection.y += gravityValue * Time.deltaTime;
+        controller.Move(moveDirection * Time.deltaTime);
 
-        if (!audioPlayer.isPlaying && ejeVertical != 0 && isGrounded)
+        if (!audioPlayer.isPlaying && ejeVertical != 0 && groundedPlayer)
         {
             audioPlayer.PlayOneShot(walkSound, 0.5f);
         }
 
-        movimiento = Movimiento.IDLE;
     }
 
     private void ControlAnimacion()
@@ -146,42 +109,13 @@ public class PlayerController : MonoBehaviour
 
         animaPlayer.SetBool("IsRun", ejeVUp || Input.GetAxis("Vertical") > 0);
         animaPlayer.SetBool("IsWalkBack", isRotate || ejeVDown);
-        animaPlayer.SetBool("IsJump", !isGrounded);
+        animaPlayer.SetBool("IsJump", !groundedPlayer);
         animaPlayer.SetBool("IsIdle", !ejeVDown && !ejeVUp && !isRotate && !animaPlayer.GetBool("IsJump"));
         animaPlayer.SetBool("IsHit", false);
         animaPlayer.SetBool("IsPunch", isPunch);
         animaPlayer.SetBool("IsDead", isDead);
         //Debug.Log($"IsIdle {animaPlayer.GetBool("IsIdle")} ; IsJump {animaPlayer.GetBool("IsJump")}; IsRun {animaPlayer.GetBool("IsRun")} ; IsWalkBack {animaPlayer.GetBool("IsWalkBack")}; giroPlayer {giroPlayer}; isGround {isGrounded}");
 
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.layer == 6)
-        {
-            isGrounded = true;
-        }
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Enemy" && isPunch)
-        {
-            Debug.Log("Golpe al enemigo");
-
-            GameObject objEnemy = other.gameObject;
-            objEnemy.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedForce * -0.5f, ForceMode.Impulse);
-            objEnemy.GetComponent<EnemyController>().AddLife(-Attack);
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.layer == 6)
-        {
-            isGrounded = false;
-        }
     }
 
 
@@ -198,7 +132,7 @@ public class PlayerController : MonoBehaviour
         if (_life <= 0)
         {
             animaPlayer.SetBool("IsHit", true);
-            gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedForceBack * -0.25f, ForceMode.Impulse);
+            //gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedBack * -0.25f, ForceMode.Impulse);
         }
 
 
@@ -217,6 +151,17 @@ public class PlayerController : MonoBehaviour
             animaPlayer.SetBool("IsDead", true);
             isDead = true;
             PlayerEvents.IsDead();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy" && isPunch)
+        {
+            Debug.Log("Golpe al enemigo");
+            GameObject objEnemy = other.gameObject;
+            objEnemy.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speed * -0.5f, ForceMode.Impulse);
+            objEnemy.GetComponent<EnemyController>().AddLife(-Attack);
         }
     }
 
