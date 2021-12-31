@@ -131,8 +131,10 @@ public class PlayerController : MonoBehaviour
     {
         if (_life <= 0)
         {
+            
             animaPlayer.SetBool("IsHit", true);
             //gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedBack * -0.25f, ForceMode.Impulse);
+            Debug.Log($"Golpe al Player: {lifePlayer} ");
         }
 
 
@@ -160,7 +162,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Golpe al enemigo");
             GameObject objEnemy = other.gameObject;
-            objEnemy.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speed * -0.5f, ForceMode.Impulse);
             objEnemy.GetComponent<EnemyController>().AddLife(-Attack);
         }
     }

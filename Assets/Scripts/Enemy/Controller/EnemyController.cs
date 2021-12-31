@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
@@ -13,21 +14,16 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private AudioClip DangerSound;
     [SerializeField] private AudioClip AttackSound;
 
-    [SerializeField] protected Transform[] waypoints;    
+    [SerializeField] protected Transform[] waypoints;
     [SerializeField] protected NavMeshAgent enemyAgent;
     [SerializeField] protected bool CanPatrol = false;
 
-
+    [SerializeField] private AnimationsController _animationsControllers;
 
     protected GameObject playerObject;
     protected AudioSource audioEnemy;
     protected Rigidbody rbEnemy;
     protected int Energia;
-
-    private float Speed
-    {
-        get { return enemyData.Velocidad * Time.deltaTime * 1000; }
-    }
 
     protected bool isGrounded = true;
     protected bool isWalk = false;
@@ -49,7 +45,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        playerObject = GameManager.playerObject;
+        playerObject = GameObject.FindGameObjectWithTag("Player");//GameManager.playerObject;
         rbEnemy = GetComponent<Rigidbody>();
         audioEnemy = GetComponent<AudioSource>();
         enemyAgent = GetComponent<NavMeshAgent>();
@@ -64,7 +60,7 @@ public class EnemyController : MonoBehaviour
 
         if (Energia <= 0 && !isDead)
         {
-            isDead = true;
+            StartCoroutine(DoDeath()); 
         }
 
         if (!isDead)
@@ -98,7 +94,6 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
-
     private void FixedUpdate()
     {
         if (isDead)
@@ -106,13 +101,11 @@ public class EnemyController : MonoBehaviour
             StartCoroutine(WaitingForDead());
         }
     }
-
     IEnumerator WaitingForDead()
     {
         yield return new WaitForSeconds(5);
         Destroy(gameObject);
     }
-
     private void Patrol()
     {
         Vector3 deltaVector = waypoints[currentIndex].position - transform.position;
@@ -139,13 +132,13 @@ public class EnemyController : MonoBehaviour
             else currentIndex--;
         }
     }
-
     public virtual void ChaseCharacter()
     {
         enemyAgent.destination = playerObject.transform.position;
         if (Vector3.Distance(transform.position, playerObject.transform.position) <= enemyData.RangoAtaque)
         {
             enemyAgent.velocity = Vector3.zero;
+            StartCoroutine(DoAttack());
             isAttack = true;
         }
         else
@@ -153,27 +146,29 @@ public class EnemyController : MonoBehaviour
             isAttack = false;
         }
     }
-
     public void AddLife(int _life)
     {
-        //if (_life <= 0)
-        //animaMutant.SetBool("IsHit", true);
+        if (_life <= 0)
+        {
+            Debug.Log($"Golpe al Enemigo: {Energia} ");
+            StartCoroutine(DoHit()); 
+        }
+
         Energia += _life;
     }
-
     private void PlayerDead()
     {
         PlayerAlert = false;
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player" && isAttack)
-        {
-            //playerObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * Speed * -0.25f, ForceMode.Impulse);
-            GameManager.instance.AddPlayerLife(-enemyData.Ataque);
+        {            
+            playerObject.GetComponent<PlayerController>().AddLife(-enemyData.Ataque);
         }
     }
+
+
     private void OnDrawGizmos()
     {
 
@@ -186,6 +181,84 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, enemyData.RangoAtaque);
         Gizmos.DrawWireSphere(transform.position, enemyData.RangoVision);
     }
-
     public virtual void AnimaControl() { }
+
+
+    //Ejecucion de animaciones
+
+    IEnumerator DoAttack()
+    {
+        _animationsControllers.Attack();
+        yield return new WaitForSeconds(Random.value * 0.1f);
+    }
+
+    IEnumerator DoHit()
+    {
+        _animationsControllers.Hit();
+        yield return new WaitForSeconds(Random.value * 0.1f);
+    }
+
+    IEnumerator DoMove()
+    {
+        _animationsControllers.SetMovingState(true);
+        yield return new WaitForSeconds(4.2f);
+        _animationsControllers.SetMovingState(false);
+    }
+
+    IEnumerator DoDeath()
+    {
+        _animationsControllers.ClearDead();
+        _animationsControllers.SetDead();
+        yield return new WaitForSeconds(Random.value * 0.1f);
+
+        //yield return new WaitForSeconds(1.2f);
+        //_animationsControllers.ClearDead();
+        isDead = true;
+
+    }
+
+    void ClearAll()
+    {
+        StopAllCoroutines();
+
+        _animationsControllers.ClearDead();
+        _animationsControllers.SetMovingState(false);
+
+    }
+
+    private void acciones()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ClearAll();
+            StartCoroutine(DoMove());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ClearAll();
+            StartCoroutine(DoHit());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ClearAll();
+            StartCoroutine(DoDeath());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            ClearAll();
+            StartCoroutine(DoAttack());
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ClearAll();
+        }
+    }
+
+
+
+
+
 }
