@@ -5,6 +5,7 @@ public class EnemyAnimationsController : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private bool _animateWhenRun = true;
+
     private static readonly int MovingHash = Animator.StringToHash("IsMoving");
     private static readonly int AttackHash = Animator.StringToHash("Attack");
     private static readonly int HitHash = Animator.StringToHash("Hit");

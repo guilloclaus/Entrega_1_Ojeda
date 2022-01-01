@@ -199,6 +199,8 @@ GameObject:
   - component: {fileID: 14365428}
   - component: {fileID: 11432326}
   - component: {fileID: 5549954665798330241}
+  - component: {fileID: 9126204338520522662}
+  - component: {fileID: 1367365470689220901}
   m_Layer: 0
   m_Name: thc6
   m_TagString: Untagged
@@ -288,6 +290,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2.1460476, z: 1.713824}
   m_Center: {x: -4.6303903e-16, y: 1.0510898, z: -0.12115374}
+--- !u!54 &9126204338520522662
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111292}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1367365470689220901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dd9df7738dbbf34db5463f053d28d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 9500310}
+  _animateWhenRun: 1
 --- !u!1 &112038
 GameObject:
   m_ObjectHideFlags: 0
