@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fc017e042e5e1947b6ea5cb307da126, type: 3}
-  m_Name: MutanSpider
+  m_Name: MutantSpider_Boss
   m_EditorClassIdentifier: 
-  energia: 250
-  escudo: 2
-  ataque: 10
-  velocidad: 70
-  velocidadGiro: 8
-  rangoVision: 6
-  rangoAtaque: 1.75
-  puntuacion: 800
+  energia: 800
+  escudo: 4
+  ataque: 20
+  velocidad: 50
+  velocidadGiro: 6
+  rangoVision: 14
+  rangoAtaque: 4
+  puntuacion: 1500

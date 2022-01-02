@@ -17,6 +17,6 @@ MonoBehaviour:
   ataque: 2
   velocidad: 70
   velocidadGiro: 8
-  rangoVision: 8
+  rangoVision: 6
   rangoAtaque: 1.75
   puntuacion: 50

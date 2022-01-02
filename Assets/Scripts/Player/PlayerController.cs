@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,11 +21,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animaPlayer;
     [SerializeField] private AudioClip walkSound;
 
+
+    bool tirar = false;
+
     private bool isGrounded = true;
     private bool isRotate = false;
     private bool isWalk = false;
     private bool isHit = false;
     private bool isPunch = false;
+    private bool isThrow = false;
     private bool isDead = false;
 
     [SerializeField] private int lifePlayer = 100;
@@ -89,6 +94,11 @@ public class PlayerController : MonoBehaviour
             }
             else isPunch = false;
 
+            if (Input.GetMouseButton(1) )
+            {
+                StartCoroutine(DoAttack());
+            }
+
         }
 
         moveDirection.y += gravityValue * Time.deltaTime;
@@ -112,6 +122,7 @@ public class PlayerController : MonoBehaviour
         animaPlayer.SetBool("IsIdle", !ejeVDown && !ejeVUp && !isRotate && !animaPlayer.GetBool("IsJump"));
         animaPlayer.SetBool("IsHit", false);
         animaPlayer.SetBool("IsPunch", isPunch);
+        //animaPlayer.SetBool("Throw", isThrow);
         animaPlayer.SetBool("IsDead", isDead);
         //Debug.Log($"IsIdle {animaPlayer.GetBool("IsIdle")} ; IsJump {animaPlayer.GetBool("IsJump")}; IsRun {animaPlayer.GetBool("IsRun")} ; IsWalkBack {animaPlayer.GetBool("IsWalkBack")}; giroPlayer {giroPlayer}; isGround {isGrounded}");
 
@@ -128,7 +139,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_life <= 0)
         {
-            
+
             animaPlayer.SetBool("IsHit", true);
             //gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedBack * -0.25f, ForceMode.Impulse);
             Debug.Log($"Golpe al Player: {lifePlayer} ");
@@ -151,6 +162,14 @@ public class PlayerController : MonoBehaviour
             isDead = true;
             PlayerEvents.IsDead();
         }
+    }
+
+    IEnumerator DoAttack()
+    {
+        animaPlayer.SetBool("isShoot", true);
+        yield return new WaitForSeconds(1.8f);
+
+        animaPlayer.SetBool("isShoot", false);
     }
 
     private void OnTriggerEnter(Collider other)

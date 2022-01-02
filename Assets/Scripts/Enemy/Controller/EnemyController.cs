@@ -24,6 +24,7 @@ public class EnemyController : MonoBehaviour
     protected AudioSource audioEnemy;
     protected Rigidbody rbEnemy;
     protected int Energia;
+    protected float Vision;
 
     protected bool isGrounded = true;
     protected bool isWalk = false;
@@ -55,11 +56,12 @@ public class EnemyController : MonoBehaviour
         NavAgent = GetComponent<NavMeshAgent>();
         isDead = false;
         Energia = ObjData.Energia;
+        Vision = ObjData.RangoVision;
     }
 
     void Update()
     {
-
+            
         if (Energia <= 0 && !isDead)
         {
             isDead = true;
@@ -69,15 +71,17 @@ public class EnemyController : MonoBehaviour
 
         if (!isDead)
         {
-            if (Vector3.Distance(transform.position, playerObject.transform.position) <= ObjData.RangoVision && PlayerAlert)
+            if (Vector3.Distance(transform.position, playerObject.transform.position) <= Vision && PlayerAlert)
             {
                 iSeeTheCharacter = true;
+                Vision = ObjData.RangoVision * 1.5f;
             }
             else
             {
                 iSeeTheCharacter = false;
                 IsRoaring = false;
                 isAttack = false;
+                Vision = ObjData.RangoVision;
                 ReturnToPosition();
             }
 
@@ -197,9 +201,8 @@ public class EnemyController : MonoBehaviour
         else
             Gizmos.color = Color.green;
 
-
         Gizmos.DrawWireSphere(transform.position, ObjData.RangoAtaque);
-        Gizmos.DrawWireSphere(transform.position, ObjData.RangoVision);
+        Gizmos.DrawWireSphere(transform.position, Vision);
     }
 
     //Ejecucion de animaciones
@@ -211,26 +214,22 @@ public class EnemyController : MonoBehaviour
 
         StopAllCoroutines();
     }
-
     IEnumerator DoHit()
     {
         _animationsControllers.Hit();
         yield return new WaitForSeconds(Random.value * 0.1f);
     }
-
     IEnumerator DoMove()
     {
         _animationsControllers.SetMovingState(true);
         yield return new WaitForSeconds(4.2f);
         _animationsControllers.SetMovingState(false);
     }
-
     IEnumerator DoDeath()
     {
         _animationsControllers.SetDead();
         yield return new WaitForSeconds(Random.value * 0.1f);
     }
-
     void ClearAll()
     {
         StopAllCoroutines();

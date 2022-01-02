@@ -535,6 +535,7 @@ GameObject:
   - component: {fileID: -8122823976376398265}
   - component: {fileID: -8178493315988621885}
   - component: {fileID: -1191389319405183850}
+  - component: {fileID: 2684014123797475183}
   m_Layer: 0
   m_Name: Spider_Fuga_Red
   m_TagString: Untagged
@@ -602,7 +603,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -640,6 +641,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da716c7778d4a6a4582a198e658df8e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 7122654101862791351}
+  _animateWhenRun: 1
+--- !u!114 &2684014123797475183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7122654101855521591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a581d31fb6c0ee242a1499e11b9f39b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjData: {fileID: 0}
+  AlertSound: {fileID: 0}
+  DangerSound: {fileID: 0}
+  AttackSound: {fileID: 0}
+  waypoints: []
+  NavAgent: {fileID: 0}
+  CanPatrol: 0
+  _animationsControllers: {fileID: 0}
 --- !u!1 &7122654101855521597
 GameObject:
   m_ObjectHideFlags: 0
