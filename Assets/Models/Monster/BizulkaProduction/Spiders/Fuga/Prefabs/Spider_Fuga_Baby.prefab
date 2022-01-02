@@ -666,6 +666,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2523460255254930324}
+  - component: {fileID: 3474887685249861796}
   m_Layer: 0
   m_Name: Spider_Fuga.c
   m_TagString: Untagged
@@ -688,6 +689,19 @@ Transform:
   m_Father: {fileID: 5525843014205037744}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &3474887685249861796
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523460255255297972}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.92
+  m_Center: {x: 0, y: -0.3, z: 1.05}
 --- !u!1 &2523460255255297974
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,11 +711,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2523460255254930326}
-  - component: {fileID: 920119559714650406}
   - component: {fileID: -7519895887423188721}
+  - component: {fileID: -3231170824994488191}
+  - component: {fileID: 1043192303889738786}
+  - component: {fileID: 2223937344414126850}
+  - component: {fileID: 771745552353552139}
+  - component: {fileID: -5896739178343781128}
   m_Layer: 0
   m_Name: Spider_Fuga_Baby
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -721,19 +739,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &920119559714650406
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2523460255255297974}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.8577168, z: 1.2350767}
-  m_Center: {x: 0, y: 0.3866393, z: 0.11753835}
 --- !u!114 &-7519895887423188721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,6 +751,98 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da716c7778d4a6a4582a198e658df8e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: -5896739178343781128}
+  _animateWhenRun: 1
+--- !u!114 &-3231170824994488191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523460255255297974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a581d31fb6c0ee242a1499e11b9f39b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjData: {fileID: 11400000, guid: 32ecbe30cf806d3459adb5729ccee492, type: 2}
+  AlertSound: {fileID: 8300000, guid: d82ce261446d9493ab9e424042c93303, type: 3}
+  DangerSound: {fileID: 8300000, guid: 90105c98a76ad4dec9ec990d26140a70, type: 3}
+  AttackSound: {fileID: 8300000, guid: 5fdb461555f214ae3854e33eaa45ee3f, type: 3}
+  waypoints: []
+  NavAgent: {fileID: 1043192303889738786}
+  CanPatrol: 0
+  _animationsControllers: {fileID: -7519895887423188721}
+--- !u!195 &1043192303889738786
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523460255255297974}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &2223937344414126850
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523460255255297974}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &771745552353552139
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523460255255297974}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.67
+  m_Center: {x: 0, y: 0.4, z: 0}
+--- !u!95 &-5896739178343781128
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523460255255297974}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 17f2f54fedc2dd246828d6a328855293, type: 3}
+  m_Controller: {fileID: 9100000, guid: 0c7deb298d1917b46abb20e3da49a6c5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2523460255255298016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,6 +1127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2523460255254930386}
+  - component: {fileID: 3063416355204398263}
   m_Layer: 0
   m_Name: Mouth.L
   m_TagString: Untagged
@@ -1052,6 +1150,19 @@ Transform:
   m_Father: {fileID: 2523460255254930388}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &3063416355204398263
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523460255255298034}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2523460255255298036
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,6 +1336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2523460255254930398}
+  - component: {fileID: 2326098327377244130}
   m_Layer: 0
   m_Name: Mouth.R
   m_TagString: Untagged
@@ -1247,3 +1359,16 @@ Transform:
   m_Father: {fileID: 2523460255254930388}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2326098327377244130
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523460255255298046}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

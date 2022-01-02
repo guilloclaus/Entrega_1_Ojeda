@@ -56,7 +56,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        IamAlive();
+        if (!isDead)
+            IamAlive();
     }
 
     private void FixedUpdate()
@@ -138,10 +139,8 @@ public class PlayerController : MonoBehaviour
     public void AddLife(int _life)
     {
         if (_life <= 0)
-        {
-
+        {                        
             animaPlayer.SetBool("IsHit", true);
-            //gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speedBack * -0.25f, ForceMode.Impulse);
             Debug.Log($"Golpe al Player: {lifePlayer} ");
         }
 

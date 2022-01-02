@@ -37,6 +37,7 @@ public class Mutant_Araña : AnimationsController
         int rndAtack = Random.Range(1, 4);
         _animator.SetInteger("Attack", rndAtack);
         _animator.SetInteger("Hit", 0);
+
     }
 
     public override void Hit()

@@ -31,6 +31,8 @@ public class EnemyController : MonoBehaviour
     protected bool IsRoaring = false;
     protected bool isAttack = false;
 
+    protected bool isHit = false;
+
 
     protected bool isDead = false;
     protected bool PlayerAlert = true;
@@ -61,7 +63,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-            
+
         if (Energia <= 0 && !isDead)
         {
             isDead = true;
@@ -69,9 +71,10 @@ public class EnemyController : MonoBehaviour
             StartCoroutine(DoDeath());
         }
 
-        if (!isDead)
+        if (!isDead )
         {
-            if (Vector3.Distance(transform.position, playerObject.transform.position) <= Vision && PlayerAlert)
+            
+            if (playerObject != null && Vector3.Distance(transform.position, playerObject.transform.position) <= Vision && PlayerAlert)
             {
                 iSeeTheCharacter = true;
                 Vision = ObjData.RangoVision * 1.5f;
@@ -101,7 +104,7 @@ public class EnemyController : MonoBehaviour
             {
                 Patrol();
             }
-  
+
         }
     }
     private void FixedUpdate()
@@ -163,6 +166,7 @@ public class EnemyController : MonoBehaviour
     {
         if (_life <= 0 && !isDead)
         {
+            isHit = true;
             Debug.Log($"Golpe al Enemigo: {Energia} ");
             StartCoroutine(DoHit());
         }
@@ -218,6 +222,8 @@ public class EnemyController : MonoBehaviour
     {
         _animationsControllers.Hit();
         yield return new WaitForSeconds(Random.value * 0.1f);
+
+        isHit = false;
     }
     IEnumerator DoMove()
     {

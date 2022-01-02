@@ -737,7 +737,7 @@ GameObject:
   - component: {fileID: 4513425958174261963}
   m_Layer: 0
   m_Name: Spider_Fuga_Gray
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -857,14 +857,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a581d31fb6c0ee242a1499e11b9f39b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjData: {fileID: 0}
-  AlertSound: {fileID: 0}
-  DangerSound: {fileID: 0}
-  AttackSound: {fileID: 0}
+  ObjData: {fileID: 11400000, guid: 21a00f292463b9e45bf9b35bd413bc82, type: 2}
+  AlertSound: {fileID: 8300000, guid: d82ce261446d9493ab9e424042c93303, type: 3}
+  DangerSound: {fileID: 8300000, guid: 90105c98a76ad4dec9ec990d26140a70, type: 3}
+  AttackSound: {fileID: 8300000, guid: 5fdb461555f214ae3854e33eaa45ee3f, type: 3}
   waypoints: []
-  NavAgent: {fileID: 0}
+  NavAgent: {fileID: 7695459957968677672}
   CanPatrol: 0
-  _animationsControllers: {fileID: 0}
+  _animationsControllers: {fileID: 8816545859612597292}
 --- !u!1 &8187015543198388646
 GameObject:
   m_ObjectHideFlags: 0
