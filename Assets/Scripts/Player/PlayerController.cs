@@ -100,7 +100,6 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
     private void ControlAnimacion()
     {
         bool ejeVUp = Input.GetKey(KeyCode.W);
@@ -117,8 +116,6 @@ public class PlayerController : MonoBehaviour
         //Debug.Log($"IsIdle {animaPlayer.GetBool("IsIdle")} ; IsJump {animaPlayer.GetBool("IsJump")}; IsRun {animaPlayer.GetBool("IsRun")} ; IsWalkBack {animaPlayer.GetBool("IsWalkBack")}; giroPlayer {giroPlayer}; isGround {isGrounded}");
 
     }
-
-
     public void AddShield(int _shield)
     {
         shieldPlayer += _shield;

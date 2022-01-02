@@ -200,10 +200,12 @@ GameObject:
   - component: {fileID: 11432326}
   - component: {fileID: 5549954665798330241}
   - component: {fileID: 9126204338520522662}
-  - component: {fileID: 1367365470689220901}
+  - component: {fileID: 2508277860838260726}
+  - component: {fileID: 1350515267747390009}
+  - component: {fileID: 6257404682154424636}
   m_Layer: 0
   m_Name: thc6
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -252,7 +254,7 @@ CharacterController:
   m_GameObject: {fileID: 111292}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 2.17
   m_Radius: 0.81
@@ -268,7 +270,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111292}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e2744403d2cbfb4f867bb5e724215a8, type: 3}
   m_Name: 
@@ -288,8 +290,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.1460476, z: 1.713824}
-  m_Center: {x: -4.6303903e-16, y: 1.0510898, z: -0.12115374}
+  m_Size: {x: 0.61, y: 2.1460476, z: 1.5}
+  m_Center: {x: -4.6303903e-16, y: 1.0510898, z: -0.21}
 --- !u!54 &9126204338520522662
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -306,7 +308,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1367365470689220901
+--- !u!195 &2508277860838260726
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111292}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1350515267747390009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -315,7 +339,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 111292}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dd9df7738dbbf34db5463f053d28d24, type: 3}
+  m_Script: {fileID: 11500000, guid: a581d31fb6c0ee242a1499e11b9f39b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjData: {fileID: 11400000, guid: 5a84530c53235b84d9a0811f4b490c49, type: 2}
+  AlertSound: {fileID: 8300000, guid: d82ce261446d9493ab9e424042c93303, type: 3}
+  DangerSound: {fileID: 8300000, guid: 90105c98a76ad4dec9ec990d26140a70, type: 3}
+  AttackSound: {fileID: 8300000, guid: 5fdb461555f214ae3854e33eaa45ee3f, type: 3}
+  waypoints: []
+  NavAgent: {fileID: 2508277860838260726}
+  CanPatrol: 0
+  _animationsControllers: {fileID: 0}
+--- !u!114 &6257404682154424636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3090177d3dbb98b4782a3e5c89261e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 9500310}
@@ -393,6 +437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 460774}
+  - component: {fileID: 4021592255756037440}
   m_Layer: 0
   m_Name: IK_hand.L
   m_TagString: Untagged
@@ -415,6 +460,19 @@ Transform:
   m_Father: {fileID: 423970}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4021592255756037440
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112654}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1313597, y: 0.46354347, z: 0.19403262}
+  m_Center: {x: 0.0117384195, y: -0.005664304, z: 0.012951656}
 --- !u!1 &116212
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,6 +849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 431322}
+  - component: {fileID: 7592359738388906462}
   m_Layer: 0
   m_Name: IK_hand.R
   m_TagString: Untagged
@@ -813,6 +872,19 @@ Transform:
   m_Father: {fileID: 423970}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7592359738388906462
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124016}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1470108, y: 0.46043935, z: 0.19564204}
+  m_Center: {x: -0.007825643, y: -0.004109159, z: 0.009842528}
 --- !u!1 &124114
 GameObject:
   m_ObjectHideFlags: 0

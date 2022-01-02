@@ -730,10 +730,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8187015543198748036}
   - component: {fileID: 8187015543188906532}
-  - component: {fileID: 1017225953804347684}
   - component: {fileID: -7129887006482138393}
   - component: {fileID: 7883232705035609702}
   - component: {fileID: 7695459957968677672}
+  - component: {fileID: 8816545859612597292}
   m_Layer: 0
   m_Name: Spider_Fuga_Gray
   m_TagString: Untagged
@@ -779,20 +779,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1017225953804347684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8187015543198388644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dd9df7738dbbf34db5463f053d28d24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 8187015543188906532}
-  _animateWhenRun: 1
 --- !u!135 &-7129887006482138393
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -844,6 +830,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8816545859612597292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8187015543198388644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da716c7778d4a6a4582a198e658df8e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8187015543198388646
 GameObject:
   m_ObjectHideFlags: 0

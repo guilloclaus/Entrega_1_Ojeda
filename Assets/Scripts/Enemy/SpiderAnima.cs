@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpiderAnima : MonoBehaviour
+public class SpiderAnima : AnimationsController
 {
-    // Start is called before the first frame update
-    void Start()
+
+
+    public override void Inicializar() 
     {
-        
+        MovingHash = Animator.StringToHash("IsMoving");
+        AttackHash = Animator.StringToHash("Attack");
+        HitHash = Animator.StringToHash("Hit");
+        IsDeadHash = Animator.StringToHash("IsDead");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

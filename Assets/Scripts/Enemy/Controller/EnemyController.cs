@@ -9,13 +9,13 @@ using Random = UnityEngine.Random;
 public class EnemyController : MonoBehaviour
 {
 
-    [SerializeField] protected EnemyProperty enemyData;
+    [SerializeField] protected EnemyProperty ObjData;
     [SerializeField] private AudioClip AlertSound;
     [SerializeField] private AudioClip DangerSound;
     [SerializeField] private AudioClip AttackSound;
 
     [SerializeField] protected Transform[] waypoints;
-    [SerializeField] protected NavMeshAgent enemyAgent;
+    [SerializeField] protected NavMeshAgent NavAgent;
     [SerializeField] protected bool CanPatrol = false;
 
     [SerializeField] private AnimationsController _animationsControllers;
@@ -35,11 +35,15 @@ public class EnemyController : MonoBehaviour
     protected bool PlayerAlert = true;
     protected bool iSeeTheCharacter = false;
 
+    private Vector3 _initPosition;
+
     int currentIndex = 0;
     bool goBack = false;
 
     private void Awake()
     {
+
+        _initPosition = transform.position;
         PlayerEvents.onDead += PlayerDead;
     }
 
@@ -48,24 +52,24 @@ public class EnemyController : MonoBehaviour
         playerObject = GameObject.FindGameObjectWithTag("Player");//GameManager.playerObject;
         rbEnemy = GetComponent<Rigidbody>();
         audioEnemy = GetComponent<AudioSource>();
-        enemyAgent = GetComponent<NavMeshAgent>();
+        NavAgent = GetComponent<NavMeshAgent>();
         isDead = false;
-        Energia = enemyData.Energia;
+        Energia = ObjData.Energia;
     }
 
     void Update()
     {
 
-        AnimaControl();
-
         if (Energia <= 0 && !isDead)
         {
-            StartCoroutine(DoDeath()); 
+            isDead = true;
+            ClearAll();
+            StartCoroutine(DoDeath());
         }
 
         if (!isDead)
         {
-            if (Vector3.Distance(transform.position, playerObject.transform.position) <= enemyData.RangoVision && PlayerAlert)
+            if (Vector3.Distance(transform.position, playerObject.transform.position) <= ObjData.RangoVision && PlayerAlert)
             {
                 iSeeTheCharacter = true;
             }
@@ -74,6 +78,7 @@ public class EnemyController : MonoBehaviour
                 iSeeTheCharacter = false;
                 IsRoaring = false;
                 isAttack = false;
+                ReturnToPosition();
             }
 
             if (iSeeTheCharacter && PlayerAlert)
@@ -92,6 +97,7 @@ public class EnemyController : MonoBehaviour
             {
                 Patrol();
             }
+  
         }
     }
     private void FixedUpdate()
@@ -111,10 +117,10 @@ public class EnemyController : MonoBehaviour
         Vector3 deltaVector = waypoints[currentIndex].position - transform.position;
         float distance = deltaVector.magnitude;
 
-        enemyAgent.destination = waypoints[currentIndex].position;
+        NavAgent.destination = waypoints[currentIndex].position;
 
 
-        if (distance < enemyData.RangoAtaque)
+        if (distance < ObjData.RangoAtaque)
         {
             if (currentIndex >= waypoints.Length - 1)
             {
@@ -134,24 +140,27 @@ public class EnemyController : MonoBehaviour
     }
     public virtual void ChaseCharacter()
     {
-        enemyAgent.destination = playerObject.transform.position;
-        if (Vector3.Distance(transform.position, playerObject.transform.position) <= enemyData.RangoAtaque)
+        if (!isDead)
         {
-            enemyAgent.velocity = Vector3.zero;
-            StartCoroutine(DoAttack());
-            isAttack = true;
-        }
-        else
-        {
-            isAttack = false;
+            NavAgent.destination = playerObject.transform.position;
+            if (Vector3.Distance(transform.position, playerObject.transform.position) <= ObjData.RangoAtaque)
+            {
+                NavAgent.velocity = Vector3.zero;
+                StartCoroutine(DoAttack());
+                isAttack = true;
+            }
+            else
+            {
+                isAttack = false;
+            }
         }
     }
     public void AddLife(int _life)
     {
-        if (_life <= 0)
+        if (_life <= 0 && !isDead)
         {
             Debug.Log($"Golpe al Enemigo: {Energia} ");
-            StartCoroutine(DoHit()); 
+            StartCoroutine(DoHit());
         }
 
         Energia += _life;
@@ -159,16 +168,27 @@ public class EnemyController : MonoBehaviour
     private void PlayerDead()
     {
         PlayerAlert = false;
+        ClearAll();
+        ReturnToPosition();
     }
+
+    private void ReturnToPosition()
+    {
+
+        if (Vector3.Distance(transform.position, _initPosition) <= ObjData.RangoAtaque)
+            NavAgent.velocity = Vector3.zero;
+        else
+            NavAgent.destination = _initPosition;
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player" && isAttack)
-        {            
-            playerObject.GetComponent<PlayerController>().AddLife(-enemyData.Ataque);
+        {
+            playerObject.GetComponent<PlayerController>().AddLife(-ObjData.Ataque);
         }
     }
-
-
     private void OnDrawGizmos()
     {
 
@@ -178,11 +198,9 @@ public class EnemyController : MonoBehaviour
             Gizmos.color = Color.green;
 
 
-        Gizmos.DrawWireSphere(transform.position, enemyData.RangoAtaque);
-        Gizmos.DrawWireSphere(transform.position, enemyData.RangoVision);
+        Gizmos.DrawWireSphere(transform.position, ObjData.RangoAtaque);
+        Gizmos.DrawWireSphere(transform.position, ObjData.RangoVision);
     }
-    public virtual void AnimaControl() { }
-
 
     //Ejecucion de animaciones
 
@@ -190,6 +208,8 @@ public class EnemyController : MonoBehaviour
     {
         _animationsControllers.Attack();
         yield return new WaitForSeconds(Random.value * 0.1f);
+
+        StopAllCoroutines();
     }
 
     IEnumerator DoHit()
@@ -207,58 +227,15 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator DoDeath()
     {
-        _animationsControllers.ClearDead();
         _animationsControllers.SetDead();
         yield return new WaitForSeconds(Random.value * 0.1f);
-
-        //yield return new WaitForSeconds(1.2f);
-        //_animationsControllers.ClearDead();
-        isDead = true;
-
     }
 
     void ClearAll()
     {
         StopAllCoroutines();
-
-        _animationsControllers.ClearDead();
-        _animationsControllers.SetMovingState(false);
-
+        _animationsControllers.ClearAll();
     }
-
-    private void acciones()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ClearAll();
-            StartCoroutine(DoMove());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ClearAll();
-            StartCoroutine(DoHit());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ClearAll();
-            StartCoroutine(DoDeath());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ClearAll();
-            StartCoroutine(DoAttack());
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ClearAll();
-        }
-    }
-
-
-
 
 
 }

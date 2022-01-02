@@ -697,8 +697,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2523460255254930326}
-  - component: {fileID: 2070245150975886367}
   - component: {fileID: 920119559714650406}
+  - component: {fileID: -7519895887423188721}
   m_Layer: 0
   m_Name: Spider_Fuga_Baby
   m_TagString: Untagged
@@ -721,20 +721,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2070245150975886367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2523460255255297974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dd9df7738dbbf34db5463f053d28d24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 252531731330259472}
-  _animateWhenRun: 1
 --- !u!65 &920119559714650406
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -748,6 +734,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.8577168, z: 1.2350767}
   m_Center: {x: 0, y: 0.3866393, z: 0.11753835}
+--- !u!114 &-7519895887423188721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523460255255297974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da716c7778d4a6a4582a198e658df8e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2523460255255298016
 GameObject:
   m_ObjectHideFlags: 0
