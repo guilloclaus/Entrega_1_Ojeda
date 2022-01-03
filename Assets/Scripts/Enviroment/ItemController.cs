@@ -7,19 +7,24 @@ public class ItemController : MonoBehaviour
 
     public enum ItemType { NoType, Arma, Escudo, Item, Cura, Daño };
 
+
+    [SerializeField] private ItemProperty ObjData;
     [SerializeField] private bool rotate;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private AudioClip collectSound;
     [SerializeField] private ItemType itemType;
 
 
-    [SerializeField] private int valor;
-    [SerializeField] private string Nombre;
+    private int premio;
+    private int valor;
+    private string Nombre;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        premio = ObjData.Premio;
+        valor = ObjData.Valor;
+        Nombre = ObjData.Nombre;
     }
 
     // Update is called once per frame
@@ -48,23 +53,23 @@ public class ItemController : MonoBehaviour
             case ItemType.NoType:
                 break;
             case ItemType.Arma:
-                GameManager.instance.AddPlayerAttack(1);
+                GameManager.instance.AddPlayerAttack(valor);
                 break;
             case ItemType.Cura:
-                GameManager.instance.AddPlayerLife(10);
+                GameManager.instance.AddPlayerLife(valor);
                 break;
             case ItemType.Daño:
-                GameManager.instance.AddPlayerLife(-5);
+                GameManager.instance.AddPlayerLife(valor);
                 break;
             case ItemType.Escudo:
-                GameManager.instance.AddPlayerShield(5);
+                GameManager.instance.AddPlayerShield(valor);
                 break;
             case ItemType.Item:
-                GameManager.instance.AddScore(valor*2);
+                GameManager.instance.AddScore(premio * 2);
                 break;
         }
 
-        GameManager.instance.AddScore(valor);
+        GameManager.instance.AddScore(premio);
         GameManager.Destroy(gameObject);
 
     }

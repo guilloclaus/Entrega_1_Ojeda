@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fc017e042e5e1947b6ea5cb307da126, type: 3}
   m_Name: Spider_Baby
   m_EditorClassIdentifier: 
-  energia: 75
+  energia: 50
   escudo: 0
-  ataque: 0
+  ataque: 1
   velocidad: 80
   velocidadGiro: 8
   rangoVision: 6

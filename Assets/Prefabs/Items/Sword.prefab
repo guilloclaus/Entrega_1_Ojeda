@@ -192,12 +192,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea5eef4442d4164bb1084be0b3df6bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjData: {fileID: 11400000, guid: e2f675a6e9c09c1439f3cc2e039aaa24, type: 2}
   rotate: 1
   rotationSpeed: 10
   collectSound: {fileID: 8300000, guid: 0f579092c76764d8e8df04853e9a2c13, type: 3}
   itemType: 1
-  valor: 2500
-  Nombre: Espadon
 --- !u!135 &135639512477297628
 SphereCollider:
   m_ObjectHideFlags: 0

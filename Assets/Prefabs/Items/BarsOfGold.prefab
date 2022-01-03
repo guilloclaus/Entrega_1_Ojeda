@@ -96,12 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea5eef4442d4164bb1084be0b3df6bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjData: {fileID: 11400000, guid: ed37bf4882eb7d54c87c30cb154cb734, type: 2}
   rotate: 1
   rotationSpeed: 5
   collectSound: {fileID: 8300000, guid: 0f579092c76764d8e8df04853e9a2c13, type: 3}
   itemType: 3
-  valor: 2500
-  Nombre: Oro
 --- !u!82 &82128172467686612
 AudioSource:
   m_ObjectHideFlags: 0

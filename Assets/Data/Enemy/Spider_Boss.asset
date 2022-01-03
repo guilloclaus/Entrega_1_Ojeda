@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energia: 600
   escudo: 2
-  ataque: 0
+  ataque: 4
   velocidad: 50
   velocidadGiro: 8
   rangoVision: 12

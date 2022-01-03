@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemProperty : MonoBehaviour
+
+[CreateAssetMenu(fileName = "New Item Data", menuName = "Item Data")]
+
+public class ItemProperty : ScriptableObject
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField]
+    private int premio;
+    public int Premio { get { return premio; } }
+    [SerializeField]
+    private int valor;
+    public int Valor { get { return valor; } }
+    [SerializeField]
+    private string nombre;
+    public string Nombre { get { return nombre; } }
 }

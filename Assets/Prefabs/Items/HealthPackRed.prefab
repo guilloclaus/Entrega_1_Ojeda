@@ -96,12 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea5eef4442d4164bb1084be0b3df6bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjData: {fileID: 11400000, guid: f7c8aadbfd0a4d04c88dd23171c0fce0, type: 2}
   rotate: 1
   rotationSpeed: 20
   collectSound: {fileID: 8300000, guid: 0f579092c76764d8e8df04853e9a2c13, type: 3}
   itemType: 4
-  valor: 500
-  Nombre: Cura++
 --- !u!82 &82516303070720438
 AudioSource:
   m_ObjectHideFlags: 0
