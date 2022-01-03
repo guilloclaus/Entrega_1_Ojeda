@@ -21,5 +21,9 @@ public class LandingController : MonoBehaviour
         SceneManager.LoadScene("Level_one");
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 
 }

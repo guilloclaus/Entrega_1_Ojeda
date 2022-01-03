@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjData: {fileID: 11400000, guid: bbd336b21253a044d8c5c837ca33ffc1, type: 2}
   rotate: 1
-  rotationSpeed: 5
+  rotationSpeed: 10
   collectSound: {fileID: 8300000, guid: 0f579092c76764d8e8df04853e9a2c13, type: 3}
   itemType: 3
 --- !u!82 &82116696716243466

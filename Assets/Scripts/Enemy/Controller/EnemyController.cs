@@ -45,7 +45,6 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
-
         _initPosition = transform.position;
         PlayerEvents.onDead += PlayerDead;
     }
@@ -71,9 +70,9 @@ public class EnemyController : MonoBehaviour
             StartCoroutine(DoDeath());
         }
 
-        if (!isDead )
+        if (!isDead)
         {
-            
+
             if (playerObject != null && Vector3.Distance(transform.position, playerObject.transform.position) <= Vision && PlayerAlert)
             {
                 iSeeTheCharacter = true;
@@ -85,7 +84,6 @@ public class EnemyController : MonoBehaviour
                 IsRoaring = false;
                 isAttack = false;
                 Vision = ObjData.RangoVision;
-                ReturnToPosition();
             }
 
             if (iSeeTheCharacter && PlayerAlert)
@@ -104,9 +102,13 @@ public class EnemyController : MonoBehaviour
             {
                 Patrol();
             }
-
+            else
+            {
+                ReturnToPosition();
+            }
         }
     }
+
     private void FixedUpdate()
     {
         if (isDead)
@@ -121,13 +123,13 @@ public class EnemyController : MonoBehaviour
     }
     private void Patrol()
     {
-        Vector3 deltaVector = waypoints[currentIndex].position - transform.position;
-        float distance = deltaVector.magnitude;
 
+        Vector3 deltaVector = waypoints[currentIndex].position - transform.position;
         NavAgent.destination = waypoints[currentIndex].position;
 
+        float distance = deltaVector.magnitude;
 
-        if (distance < ObjData.RangoAtaque)
+        if (distance < 1.5f)
         {
             if (currentIndex >= waypoints.Length - 1)
             {
@@ -144,6 +146,7 @@ public class EnemyController : MonoBehaviour
             }
             else currentIndex--;
         }
+
     }
     public virtual void ChaseCharacter()
     {

@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     private void PlayerDead()
     {
-
+        playerControler.Life = 0;
     }
 
     public void AddScore(int _scorePlayer)

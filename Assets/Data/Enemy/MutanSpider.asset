@@ -15,8 +15,8 @@ MonoBehaviour:
   energia: 250
   escudo: 2
   ataque: 15
-  velocidad: 70
+  velocidad: 85
   velocidadGiro: 8
-  rangoVision: 6
+  rangoVision: 8
   rangoAtaque: 1.75
   puntuacion: 800

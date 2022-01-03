@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private bool isDead = false;
 
     [SerializeField] private int lifePlayer = 100;
-    [SerializeField] private int shieldPlayer = 100;
+    [SerializeField] private int shieldPlayer = 0;
     [SerializeField] private int attackPlayer = 100;
 
     private AudioSource audioPlayer;
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
             }
             else isPunch = false;
 
-            if (Input.GetMouseButton(1) )
+            if (Input.GetMouseButton(1))
             {
                 StartCoroutine(DoAttack());
             }
@@ -139,13 +139,16 @@ public class PlayerController : MonoBehaviour
     public void AddLife(int _life)
     {
         if (_life <= 0)
-        {                        
+        {
             animaPlayer.SetBool("IsHit", true);
             Debug.Log($"Golpe al Player: {lifePlayer} ");
+            
+            lifePlayer += (Math.Abs(_life) > shieldPlayer? _life + shieldPlayer: _life);
         }
-
-
-        lifePlayer += _life;
+        else
+        {
+            lifePlayer += _life;
+        }
     }
 
     public int Shield { get { return shieldPlayer; } set { shieldPlayer = value; } }
